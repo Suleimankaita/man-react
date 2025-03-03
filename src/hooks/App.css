@@ -1,0 +1,29 @@
+.call-container {
+    width: 100%; /* Full width */
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    background: black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: scrollText 5s linear infinite;
+  }
+  
+  .call-text {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px; /* Small spacing to blend */
+  }
+  
+  @keyframes scrollText {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  
