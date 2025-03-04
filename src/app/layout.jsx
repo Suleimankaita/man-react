@@ -1,26 +1,30 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import { useState,useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
-const layout = ({allowedroles}) => {
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation, Navigate } from 'react-router-dom';
 
-  const [roles,setroles]=useState(JSON.parse(localStorage.getItem("roles"))||[])
+const Layout = ({ allowedroles = [] }) => {
+  const location = useLocation();
 
-  const location = useLocation()
-  useEffect(()=>{
-  },[])
+  // Ensure localStorage data is safely parsed and set a default value
+  const storedRoles = localStorage.getItem("roles");
+  const parsedRoles = storedRoles ? JSON.parse(storedRoles) : { Roles: [] };
+
+  const [roles, setRoles] = useState(parsedRoles);
+
+  useEffect(() => {
+    // Re-check localStorage in case roles are updated dynamically
+    const updatedRoles = localStorage.getItem("roles");
+    setRoles(updatedRoles ? JSON.parse(updatedRoles) : { Roles: [] });
+  }, []);
 
   return (
-    <article  className='outlet'>
+    <article className="outlet">
       {
-          roles.Roles.find(role=>allowedroles.includes(role))?<Outlet/>:
-        <Navigate to={'/form'} state={{from:location}} replace />
-
-        }
-
+        Array.isArray(roles.Roles) && roles.Roles.some(role => allowedroles.includes(role))
+          ? <Outlet />
+          : <Navigate to="/form" state={{ from: location }} replace />
+      }
     </article>
-  )
-}
+  );
+};
 
-export default layout
+export default Layout;
