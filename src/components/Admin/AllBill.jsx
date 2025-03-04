@@ -1,123 +1,121 @@
-import React from 'react'
-import { Table,TableCell,TableBody,TableRow,TableContainer,Paper } from '@mui/material'
-import { useGetpostQuery } from '../../features/appslice'
-import { useState,useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import {
+  Table,
+  TableCell,
+  TableBody,
+  TableRow,
+  TableContainer,
+  TableHead,
+  Paper,
+} from "@mui/material";
+import { useGetpostQuery } from "../../features/appslice";
+import { Link } from "react-router-dom";
 
-    const Bills = () => {
+const Bills = () => {
+  const { data, error, isLoading } = useGetpostQuery("", {
+    pollingInterval: 1000,
+    refetchOnFocus: true,
+  });
 
-        const {data}=useGetpostQuery('',{
-            pollingInterval:1000,
-            refetchOnFocus:true
-        })
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
 
-        const [arr,setarr]=useState([])
+  useEffect(() => {
+    if (!data || !data.ids || !data.entities) return;
 
-        const [users,setusers]=useState([])
-        
-        
-        useEffect(()=>{
+    const processData = async () => {
+      const billsArray = data.ids
+        .map((id) => data.entities[id]?.bills || []) // ✅ Avoids undefined errors
+        .flat(); // ✅ Flattens arrays if needed
 
-            const man=async()=>{
+      setUsers(billsArray);
+    };
 
-                const {ids,entities}=data;
+    processData();
+  }, [data]);
 
-                const ml=ids.map(id=>{
-                    return entities[id].bills
-                })
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data!</p>;
 
-                setusers(ml)
-                const t=ml.map(res=>{
-                    // console.log(res)
-                    setarr(res)
-                })
+  const filteredUsers = users?.filter((res) =>
+    res._id?.toLowerCase().includes(search.toLowerCase().trim())
+  ) || [];
 
-            }
-            man()
+  return (
+    <div className="alls" style={{ width: "100%" }}>
+      <div className="box-tb_inp" style={{ padding: "10px" }}>
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+      <br />
 
-        },[data])
-const [search,setsearch]=useState('')
-    
-    let all;
+      <TableContainer component={Paper}>
+        <Table>
+          {/* <TableHead> */}
+            <TableRow>
+              <TableCell align="center">ID</TableCell>
+              <TableCell align="center">Username</TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                Bill Name
+              </TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                Account No
+              </TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                Amount
+              </TableCell>
+              <TableCell sx={{ display: { xs: "none", lg: "table-cell" } }} align="center">
+                Time
+              </TableCell>
+              <TableCell sx={{ display: { xs: "none", lg: "table-cell" } }} align="center">
+                Date
+              </TableCell>
+            </TableRow>
+          {/* </TableHead> */}
 
-        let ms;
-        
-        if(arr.length){
-            console.log(arr)
-            all=arr.filter(ms=>{
-                return ms._id.toString().includes(search.trim())||ms.username.trim().toLowerCase().includes(search.trim().toLowerCase())
-            })
-    
-            ms=(
-                
-                <TableContainer component={Paper}>
-                
-                    <Table >
-                        <TableRow>
-                            <TableCell  align='center'>ID</TableCell>
-                            <TableCell  align='center'>username</TableCell>
-                           
-                            <TableCell  sx={{display:{xs:"none",md:"table-cell"}}}  align='center'>Biilname</TableCell>
-                            <TableCell  sx={{display:{xs:"none",md:"table-cell"}}}  align='center'>account_no</TableCell>
-                            <TableCell sx={{display:{xs:"none",md:"table-cell"}}} align='center'>amount</TableCell>
-                            <TableCell sx={{display:{xs:"none",lg:"table-cell"}}} align='center'>time</TableCell>
-                            <TableCell sx={{display:{xs:"none",lg:"table-cell"}}} align='center'>Date</TableCell>
-                        </TableRow>
-
-                        <TableBody >
-                
-                
-            {/* {users.map((ress)=>{ */}
-                {/* // console.log(ress) */}
-                
-               {  all.map(res=>(
-                    
-            <TableRow component={Link} to={''} sx={{"&:hover":{backgroundColor:"lightgrey",cursor:"pointer"}}}>
-                    <TableCell  align='center'>{res.id}</TableCell>
-                    <TableCell   align='center'>{res.username}</TableCell>
-                    
-                    <TableCell  sx={{display:{xs:"none",md:"table-cell"}}} align='center'>{res.billname}</TableCell>
-                    <TableCell  sx={{display:{xs:"none",md:"table-cell"}}}   align='center'>{res.account_no}</TableCell>
-                    <TableCell  sx={{display:{xs:"none",md:"table-cell"}}} align='center'>{res.amount}</TableCell>
-                    <TableCell  sx={{display:{xs:"none",lg:"table-cell"}}} align='center'>{res.time}</TableCell>
-                    <TableCell  sx={{display:{xs:"none",lg:"table-cell"}}} align='center'>{res.date}</TableCell>
+          <TableBody>
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((res) => (
+                <TableRow
+                  key={res._id}
+                  component={Link}
+                  to={""}
+                  sx={{ "&:hover": { backgroundColor: "lightgrey", cursor: "pointer" } }}
+                >
+                  <TableCell align="center">{res._id}</TableCell>
+                  <TableCell align="center">{res.username}</TableCell>
+                  <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                    {res.billname}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                    {res.account_no}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">
+                    {res.amount}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: "none", lg: "table-cell" } }} align="center">
+                    {res.time}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: "none", lg: "table-cell" } }} align="center">
+                    {res.date}
+                  </TableCell>
                 </TableRow>
-                
-            )
-        )}
-    
-  
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  No matching records found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
+};
 
-
-
-     
-
-        </TableBody>
-                        </Table>
-               </TableContainer>
-            )
-            
-             
-
-        }
-
-    
-    return (
-    
-
-            <div className="alls" style={{width:"100%"}}>
-
-                
-
-                <div className='box-tb_inp' style={{padding:"10px"}}>
-                
-                <input type="text" placeholder='search' onInput={(e)=>setsearch(e.target.value)} />
-                            </div>
-                            <br />
-
-            {ms}
-            </div>
-  )
-}
-
-export default Bills
+export default Bills;

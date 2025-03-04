@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux'
 import swal from 'sweetalert'
 import { accounts as acct,pricesss } from '../../features/logslice';
 import a from '../transfer/note.mp3'
-
 import { useGetpostQuery } from '../../features/appslice';
 import UseAuth from '../../hooks/UseAuth';
 import { io } from 'socket.io-client';

@@ -63,9 +63,9 @@ const form = ({isLoading,Login,isSuccess,error,isError}) => {
                 
     
                 </div>
-                <ToastContainer/>
         </div>
      <form className='form1' onSubmit={(e)=>e.preventDefault()}>
+                <ToastContainer/>
           <div className="box_inp">
     
           <div className="box_input">

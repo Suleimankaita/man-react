@@ -2,7 +2,7 @@ import React from 'react'
 import { FaBars, FaCreditCard, FaTimes } from 'react-icons/fa'
 import { useState, useRef, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { FaBell, FaCog, FaHome, FaDoorOpen, FaHistory,FaUserAlt,FaMoneyCheckAlt,FaMoneyBillAlt,FaTasks } from 'react-icons/fa'
+import { FaBell, FaCog, FaHome, FaDoorOpen, FaHistory,FaUserAlt,FaMoneyCheckAlt,FaMoneyBillAlt,FaTasks,FaHandHoldingUsd } from 'react-icons/fa'
 import obj from '../hooks/obj';
 import UseAuth from '../hooks/UseAuth'
 import { useLogoutMutation } from '../api/Logoutslice'
@@ -106,6 +106,7 @@ const nav = () => {
             <li><NavLink to={'/Userlist'}><span className='fa'><FaUserAlt /></span> Userlist</NavLink></li>
             <li><NavLink to={'/loan_request'}><span className='fa'><FaMoneyCheckAlt /></span> Loan request</NavLink></li>
             <li><NavLink to={'/paybill'}><span className='fa'><FaMoneyBillAlt /></span> Bill</NavLink></li>
+            <li><NavLink to={'/Add_fund'}><span className='fa'><FaHandHoldingUsd/></span> Add_fund</NavLink></li>
           </div>
           <div className="me">
             <li><NavLink to={'/Admin_Settings'}><span className='fa'><FaCog /></span> Settings</NavLink></li>

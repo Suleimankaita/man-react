@@ -98,7 +98,7 @@ const Userlist = () => {
           
         }}
         component={Link}
-        to={`Userlist/Usersection/${user._id}`}
+        to={`Usersection/${user._id}`}
         
         >
 

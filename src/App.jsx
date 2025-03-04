@@ -60,7 +60,7 @@ import ResetPasswordPage from './reset'
     {/* <Route path='/v' element={<Vedio/>}/>
     <Route path='/wv' element={<FAQ/>}/>
     <Route path='/ms' element={<T/>}/> */}
-    <Route path='/ms' element={<AddAmountToUser/>}/> 
+    {/* <Route path='/ms' element={<AddAmountToUser/>}/>  */}
     <Route path='/forget' element={<Forget/>}/>
     <Route path='/reset/:id' element={<ResetPasswordPage/>}/>
     <Route path='/' element={<Child_layout/>}>
@@ -104,12 +104,14 @@ import ResetPasswordPage from './reset'
     
     <Route  element={<Layout allowedroles={["Admin"]}/>}>
     <Route path='/m' element={<DashBord/>}/>
+    <Route path='/Add_fund' element={<AddAmountToUser/>}/> 
     
     <Route path='/Overview' element={<Overview/>}/>
     <Route path='/Userlist' element={<Userlist/>}/>
     <Route path='/paybill' element={<Bills/>}/>
     <Route path='/loan_request' element={<Loan_section/>}/>
     <Route path='/Userlist/Usersection/:id' element={<Usersection/>}/>
+    <Route path='/Usersection/:id' element={<Usersection/>}/>
     <Route path='/paybill/Userlist/Usersection/:id' element={<Usersection/>}/>
     <Route path='/Admin_Settings/Userlist' element={<Userlist/>}/>
     <Route path='/Admin_Settings' element={<Setting/>}/>

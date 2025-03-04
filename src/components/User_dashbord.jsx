@@ -2,7 +2,7 @@ import React from 'react'
 import { FaEye,FaEyeSlash } from 'react-icons/fa'
 import { useState , useEffect,useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { FaMoneyBillAlt,FaMobileAlt,FaDigitalTachograph,FaTv,FaCoins,FaMoneyCheck,FaHandHoldingUsd} from 'react-icons/fa'
+import { FaMoneyBillAlt,FaMobileAlt,FaDigitalTachograph,FaTv,FaCoins,FaMoneyCheck,FaHandHoldingUsd,FaEllipsisH,FaFileInvoice} from 'react-icons/fa'
 import svg1 from '../assets/images/flaticon-svg/svg/wallet.svg'
 import svg2 from '../assets/images/flaticon-svg/svg/money.svg'
 import { useGetpostQuery } from '../features/appslice'
@@ -96,13 +96,13 @@ const User_dashbord = () => {
           {
           id:1,
           name:"bills",
-          img:<FaMoneyBillAlt/>,
+          img:<FaFileInvoice/>,
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
       },
           {
           id:1,
           name:"More",
-          img:<FaMoneyBillAlt/>,
+          img:<FaEllipsisH/>,
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
       },
      
