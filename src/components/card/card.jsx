@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import K from "../../assets/images/k2.jpg";
 import a from '../transfer/note.mp3';
 import { id, accounts as acct, Accno, display,pricesss, Balance, account } from '../../features/logslice';
 import S from '../../s';
