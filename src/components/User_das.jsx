@@ -15,6 +15,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
     refetchOnFocus:true,
     pollingInterval:1000
   })
+  // ssjijdij
 
   const {update}=UseAuth()
   

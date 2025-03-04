@@ -1,4 +1,3 @@
-import { FaFacebook, FaInstagram,FaTwitter } from 'react-icons/fa'
 // import overviewCharts from '../overviewCharts';
 import React from 'react'
 import { useState as  state,useEffect as eff } from 'react';
@@ -7,6 +6,7 @@ import { Bar,Line,Pie  } from 'react-chartjs-2';
 
 import opt from '../../hooks/options';
 import { useGetpostQuery as get } from '../../features/appslice';
+import { FaFacebook, FaInstagram,FaTwitter } from 'react-icons/fa'
 import {
     Chart as ChartJS,
     CategoryScale,
