@@ -40,7 +40,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
           audio.current=new Audio(a)
         }
          if (!socket.current) {
-                socket.current = io("http://localhost:4000");
+                socket.current = io("https://ict-tr8s.onrender.com");
               }
           
               const sock = socket.current;

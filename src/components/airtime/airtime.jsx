@@ -615,7 +615,7 @@ const airtime = () => {
   
           if (!socket.current&&!audio.current) {
              audio.current=new Audio(a)
-                  socket.current = io("http://localhost:4000");
+                  socket.current = io("https://ict-tr8s.onrender.com");
                 }
             
                 const sock = socket.current;

@@ -30,7 +30,7 @@ const notification = () => {
 
     useEffect(()=>{
         if(!socketRef.current){
-            socketRef.current=io("http://localhost:4000")
+            socketRef.current=io("https://ict-tr8s.onrender.com")
         }
         const sock=socketRef.current;
         
@@ -46,7 +46,7 @@ const notification = () => {
 
         useEffect(() => {
           if (!socket.current) {
-            socket.current = io("http://localhost:4000");
+            socket.current = io("https://ict-tr8s.onrender.com");
           }
       
           const sock = socket.current;

@@ -68,7 +68,7 @@ const History_id = () => {
 
     useEffect(()=>{
         if(!socketRef.current){
-            socketRef.current=io("http://localhost:4000")
+            socketRef.current=io("https://ict-tr8s.onrender.com")
         }
         const sock=socketRef.current;
         

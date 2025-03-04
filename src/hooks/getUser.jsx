@@ -9,7 +9,7 @@ const getUser = () => {
     const [user,setuser]=useState([])
 
 
-    const socket=io("http://localhost:4000")
+    const socket=io("https://ict-tr8s.onrender.com")
 
     useEffect(()=>{
 

@@ -38,7 +38,7 @@ const Userlist = () => {
     useEffect(()=>{
 
       if(!socket.current){
-        socket.current=io('http://localhost:4000');
+        socket.current=io('https://ict-tr8s.onrender.com');
       }
       // if(mounted){
 

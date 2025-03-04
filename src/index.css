@@ -652,6 +652,7 @@ body{
     width: 100%;
     overflow-y: hidden;
     align-items: center;
+    margin-bottom: 200px;
   
   }
   .dashboard-header p {
