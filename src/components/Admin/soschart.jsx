@@ -242,13 +242,11 @@ let createdAt=[];
           createdAt.push(charts.createdAt)
           // usersetlength([ids.length])
           usersl.push(charts.userId)
-          console.log(createdAt)
           const userid=usersl.reduce((sum,total)=>{
             return sum+total
           })
           usersetlength(usersl.length)
     
-          // console.log(userid)
           //  const ml=charts.map(po=>{
           //   })
             // usersetlength(userid)
@@ -256,7 +254,6 @@ let createdAt=[];
               amounte.push(date.amount)
               return date
             })
-            // console.log(tr)
           setTotalamount(amounte.reduce((sum,amounts)=>{
             return sum+amounts
           }))
@@ -272,7 +269,6 @@ let createdAt=[];
       eff(()=>{
         const man=async()=>{
           setamounts('ma')
-          // console.log(amounts)
           
         if(isSuccess&&isMounted ){
     
@@ -287,14 +283,12 @@ let createdAt=[];
               amounte.push(date.amount)
               return date
             })
-            console.log(tr)
             setTotalamount(amounte.reduce((sum,amounts)=>{
               return sum+amounts
             }))
             // arr=[]
               
               const maps=tr.filter(trans=>{
-                // console.log(trans)
                 return trans.date===date
               })
               

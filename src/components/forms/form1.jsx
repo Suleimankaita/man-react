@@ -33,11 +33,9 @@ const form = () => {
   }
 
   useEffect(()=>{
-    console.log(values)
     if(!values){
       toast("All field are required")
     }
-    console.log(value)
   },[values])
   
   const log=async()=>{
@@ -51,7 +49,6 @@ const form = () => {
               await dispatch(setlogin(res.data))
     
             }catch(err){
-              console.log("mans")
               console.log(err.message)
               toast(err.message)
             }

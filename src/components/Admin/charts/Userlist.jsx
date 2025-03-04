@@ -62,7 +62,6 @@ const Userlist = () => {
   
    useEffect(()=>{
     if(users){
-      console.log(users)
 
     }
 

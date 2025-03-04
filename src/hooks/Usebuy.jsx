@@ -29,26 +29,22 @@ const Usebuy = () => {
     const display_price=useSelector(dispricess)
     const close=()=>{
         // setopens(false)
-        console.log(opens)
             refs.current.classList.add("nones")
     }
     let me;
     let ismounted=true;
       useEffect(()=>{
-        console.log(act_no)
 
           if(ismounted&&values===true){
             const man=async()=>{
 
               // if(showadd>Number(50)){
 
-              console.log(act_no)
               const result= await disp(add({id,amount:Number(showadd),username}))
               
                  
                   
                 // }
-                console.log(display_price)
                 
                 me=
          <>

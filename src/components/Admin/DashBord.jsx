@@ -44,7 +44,6 @@ const DashBord = () => {
   const {id,Isadmin,User}=UseAuth()
   
   useEffect(()=>{
-    console.log(id)
   },[])
 
   let content;

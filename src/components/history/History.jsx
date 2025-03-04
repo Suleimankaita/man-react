@@ -49,7 +49,6 @@ const [users,setusers]=useState([
                 const all=use.seen===false
                 arr.push(all)
             })
-            console.log(arr.length)
             setme(arr.length)
         }
         return()=>{

@@ -35,7 +35,6 @@ const notification = () => {
         const sock=socketRef.current;
         
         sock.off("message").on("message",(data)=>{
-            // console.log(data)
             setusers(data)
 
         })
@@ -62,7 +61,6 @@ const notification = () => {
             }
 
             if(datas.id1===id){
-              audio.current.play().catch((err) => console.log("Sound error:", err));
               let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
               toast(man)
               // if (Notification.permission === "granted") {
@@ -96,7 +94,6 @@ const notification = () => {
             if(!users.length)return
             
             const finds=users.find(user=>user._id===id)
-            console.log(finds)
 
             setfind(finds.transaction)
 
@@ -115,7 +112,6 @@ const notification = () => {
         if(find.length){
           
           const al= find.filter(date=>{return date.date===dates})
-          console.log(al)
           setmans(al)
         }
       },[dates,find])     

@@ -99,7 +99,6 @@ const AddUserFund = () => {
             id1: formData.id,
             id: formData.id,
         }));
-        console.log('Form Data Submitted:', formData);
     };
 
     return (

@@ -6,7 +6,6 @@ import { FaDotCircle } from 'react-icons/fa'
 const Header = () => {
     const {username}=UseAuth()
     useEffect(()=>{
-      console.log(username)
     },[])
   return (
     <header className='header'>

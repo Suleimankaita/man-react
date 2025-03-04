@@ -64,7 +64,6 @@ const UserDash = () => {
 
       eff(()=>{
       
-        // console.log("mans")
 
         // setTimeout(() => {
 let con;
@@ -73,7 +72,6 @@ let con;
               const man=da.entities[id].transaction.map(po=>{
                 con=po.amount
                 return  setma(po)
-                // console.log(po.amount)
               })
       
             }, 1000);
@@ -99,7 +97,6 @@ let con;
 
     // const pay=async()=>{
     //   ups({transaction,id})
-    //   // console.log(transaction)
     // }
 
   

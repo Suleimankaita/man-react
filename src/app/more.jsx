@@ -46,7 +46,6 @@ const KSBankDashboard = () => {
       const mk=users.map(sale=>{
         setarr([...arr,sale.amount])
       })
-      console.log(users)
     }
   },[users])
 

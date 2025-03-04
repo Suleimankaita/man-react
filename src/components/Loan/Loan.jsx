@@ -137,7 +137,6 @@ const LoanSection = () => {
               setcontents(selects) 
           
         }
-        console.log(1000000)
       }
       return()=>{
 
@@ -191,7 +190,6 @@ const LoanSection = () => {
                 key={index}
                 className={`loan-offer-item ${selectedOffer === offer ? 'selected' : ''}`}
                 onClick={() => {setSelectedOffer(offer)
-                  console.log(offer)
                   setamounts(offer)
                 }}
               >

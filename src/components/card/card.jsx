@@ -99,7 +99,6 @@ const card = () => {
                 
                 setcontents(selects)
               }
-              console.log(1000000)
             }
             return()=>{
       
@@ -121,12 +120,10 @@ const card = () => {
       
         }
         socket.current.on("message", (data) => {
-          console.log("Received Transactions:", data);
           setTransactions(data);
         });
   
         socket.current.on("transactionUpdates", (datas) => {
-          console.log("POS Update:", datas);
         });
   
         socket.current.on("notify", (datas) => {
@@ -139,7 +136,6 @@ const card = () => {
         });
   
         socket.current.on("transactionUpdate", (newTransaction) => {
-          console.log("New Transaction Received:", newTransaction);
           setTransactions(prev => {
             const exists = prev.some(tx => tx._id === newTransaction._id);
             return exists ? prev : [newTransaction, ...prev];

@@ -28,7 +28,6 @@ import {Link} from 'react-router-dom'
 
                 setusers(ml)
                 const t=ml.map(res=>{
-                    // console.log(res)
                     setarr(res)
                 })
 

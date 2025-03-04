@@ -128,7 +128,6 @@ const overviewCharts = () => {
               amounte.push(date.amount)
               return date
             })
-            console.log(tr)
           setTotalamount(amounte.reduce((sum,amounts)=>{
             return sum+amounts
           }))
@@ -144,7 +143,6 @@ man()
       eff(()=>{
         const man=async()=>{
           setamounts('ma')
-          console.log(amounts)
           
         if(isSuccess&&isMounted ){
 
@@ -164,18 +162,15 @@ man()
               // amounte.push(date.amount)
               return date
             })
-            // console.log(tr)
             // setTotalamount(amounte.reduce((sum,amounts)=>{
             //   return sum+amounts
             // }))
             // arr=[]
               
               const maps=tr.filter(trans=>{
-                console.log(trans)
                 return trans.date===date
               })
               const bil2=bil.filter(trans=>{
-                console.log(trans)
                 return trans.date===date
               })
               

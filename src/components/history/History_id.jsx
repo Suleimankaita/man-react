@@ -58,7 +58,6 @@ const History_id = () => {
     //     // localStorage.setItem("arr",JSON.stringify(users))
     //     // if(find){
 
-    //         console.log(find)
     //     // }
         
     // },[find])
@@ -74,7 +73,6 @@ const History_id = () => {
         const sock=socketRef.current;
         
         sock.off("message").on("message",(data)=>{
-            // console.log(data)
             setusers(data)
 
         })
@@ -94,7 +92,6 @@ const History_id = () => {
                     
                     if(findd){
                         setfind(findd)
-                        console.log(find)
 
                     }
 
@@ -116,7 +113,6 @@ const History_id = () => {
                 if(!users.length)return
                 
                 const finds=users.find(user=>user._id===id)
-                console.log(finds)
     
                 setfind(finds.transaction)
     
@@ -128,11 +124,9 @@ const History_id = () => {
     
         const mn=async()=>{
           const m=await  ups({id}).unwrap()
-          console.log("sa"+m)
         }
         useEffect(()=>{
           
-        console.log(Number(1000).toString())
           mn()
     
         },[])

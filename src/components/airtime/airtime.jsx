@@ -574,10 +574,8 @@ const airtime = () => {
 
   let ismounted = true;
   useEffect(() => {
-    console.log(ids);
     if (ismounted) {
       if (selects) setcontents(selects);
-      console.log(1000000);
     }
     return () => {
       ismounted = false;
@@ -589,12 +587,10 @@ const airtime = () => {
   const [index, setindex] = useState(0);
 
   useEffect(() => {
-    console.log(id);
     setname(sims[0]);
   }, []);
 
   useEffect(() => {
-    console.log(name);
   }, [name]);
 
   useEffect(() => {
@@ -626,13 +622,11 @@ const airtime = () => {
             
                 // ✅ Remove existing listeners before adding new ones
                 socket.current.off("message").on("message", (data) => {
-                  console.log("Received Transactions:", data);
                   setTransactions(data);
                   // setfind(data)
                 });
                 socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
                   // toast(datas)
-                  console.log("pos"+datas)
                 })
                 
                 socket.current.off("notify").on("notify",(datas)=>{
@@ -648,7 +642,6 @@ const airtime = () => {
                 })
           
                 socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-                  console.log("New Transaction Received:", newTransaction);
                   setTransactions(prev => {
                     const exists = prev.some(tx => tx._id === newTransaction._id);
                     return exists ? prev : [newTransaction, ...prev];

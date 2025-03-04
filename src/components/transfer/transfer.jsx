@@ -930,7 +930,6 @@ const Transfer = () => {
   // reset the content of the alert Box
   let ismounted = true;
   useEffect(() => {
-    console.log(mans);
     // dispatch(Balance(amount))
     // dispatch(disp([]))
     if (ismounted) {
@@ -938,7 +937,6 @@ const Transfer = () => {
         setcontents(selects);
       }
 
-      console.log(1000000);
     }
     return () => {
       ismounted = false;
@@ -964,7 +962,6 @@ const Transfer = () => {
     // man
     // disp(pricesss({Data:credit.Data,credit:`${credit.Data} MB`,phone}))
     if (amount.length) {
-      console.log(actm);
       // disp(pricesss({ credit: amount, phone }));
 
       dispatch(Accno(amt));
@@ -1076,7 +1073,6 @@ const Transfer = () => {
   );
 
   useEffect(() => {
-    console.log(account);
     setstatus('');
   }, [amt]);
 
@@ -1097,13 +1093,11 @@ const Transfer = () => {
 
         // ✅ Remove existing listeners before adding new ones
         socket.current.off('message').on('message', (data) => {
-          console.log('Received Transactions:', data);
           setTransactions(data);
           setfind(data);
         });
         socket.current.off('transactionUpdates').on('transactionUpdates', (datas) => {
           // toast(datas)
-          console.log('pos' + datas);
         });
 
         socket.current.off('notify').on('notify', (datas) => {
@@ -1119,7 +1113,6 @@ const Transfer = () => {
         });
 
         socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
-          console.log('New Transaction Received:', newTransaction);
           setTransactions((prev) => {
             const exists = prev.some((tx) => tx._id === newTransaction._id);
             return exists ? prev : [newTransaction, ...prev];
@@ -1131,7 +1124,6 @@ const Transfer = () => {
 
     return () => {
       isMounted = false;
-      console.log('mouted');
       socket.current.off('message');
       socket.current.off('transactionUpdate');
       socket.current.off('transactionUpdates');
@@ -1170,7 +1162,6 @@ const Transfer = () => {
   useEffect(() => {
     if (search) {
       setidee(ms);
-      console.log('mans');
     }
   }, [amt, search]);
   let mp;

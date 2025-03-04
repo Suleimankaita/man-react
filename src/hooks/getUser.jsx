@@ -13,9 +13,7 @@ const getUser = () => {
 
     useEffect(()=>{
 
-        console.log(id)
         socket.on("message",(data)=>{
-            const find=data.find(id=>{console.log(id._id)})
             
             
         })

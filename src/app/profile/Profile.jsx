@@ -60,7 +60,6 @@ const Profile = () => {
       await update({form,id})
 
     }catch(err){
-      console.log(err.message)
     }
   }
   useEffect(()=>{
@@ -87,9 +86,7 @@ const Profile = () => {
       
       
 
-    console.log(man.phone)
     // if(find){
-    //   find.map(result=>{console.log(result)})
     // }
 
     }

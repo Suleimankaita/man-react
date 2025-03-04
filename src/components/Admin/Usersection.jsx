@@ -80,7 +80,6 @@ const Usersection = () => {
                     
                     if(finds){
                         setfind(finds)
-                        console.log(finds)
 
                     }
 

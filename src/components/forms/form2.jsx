@@ -23,7 +23,6 @@ const form = ({isLoading,Login,isSuccess,error,isError}) => {
             await dispatch(setlogin(res.data))
   
           }catch(err){
-            console.log("mans")
             console.log(err.message)
             toast(err.message)
           }

@@ -9,7 +9,6 @@ const layout = ({allowedroles}) => {
 
   const location = useLocation()
   useEffect(()=>{
-    console.log(roles)
   },[])
 
   return (

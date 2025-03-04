@@ -46,20 +46,16 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
               
               // ✅ Remove existing listeners before adding new ones
               socket.current.off("message").on("message", (data) => {
-                console.log("reuns")
-                console.log("Received Transactions:", data);
                 setTransactions(data);
                 setfinds(data);
                 // setfind(data)
               });
               socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
                 // toast(datas)
-                console.log("pos"+datas)
               })
               
               socket.current.off("notify").on("notify",(datas)=>{
                 if(datas.id1===id){
-                  audio.current.play().catch((err) => console.log("Sound error:", err));
                   let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
                   toast(man)
                   // if (Notification.permission === "granted") {
@@ -70,7 +66,6 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
               })
         
               socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-                console.log("New Transaction Received:", newTransaction);
                 setTransactions(prev => {
                   const exists = prev.some(tx => tx._id === newTransaction._id);
                   return exists ? prev : [newTransaction, ...prev];

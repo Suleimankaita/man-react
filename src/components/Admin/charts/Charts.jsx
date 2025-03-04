@@ -168,10 +168,8 @@ const [date,setdate]=state(new Date().toISOString().split("T")[0])
           createdAt.push(charts.createdAt);
           usersetlength(ids.length);
       
-          console.log("Charts:", charts);
       
           if (!Array.isArray(charts.transaction)) {
-            console.error(`charts.transaction is not an array for id ${id}`);
             return;
           }
       
@@ -217,7 +215,6 @@ return()=>{
             return date
           })
           const loan=charts.Loan.map(date=>{
-            console.log(date)
             return date
           })
           const bil2=bil.filter(trans=>{
@@ -240,17 +237,14 @@ return()=>{
             loan_time.push(p.time)
             loan_amount.push(p.amount)
             loan_date.push(p.date)
-            console.log("loans",p.amount)
             // todays_amount.push(p.amount)
             
           })
-          console.log(loan2)
           
             
       //  maps.map(p=>)
         datas=maps.map(p=>{
           
-          console.log('s'+p.amount)
         dates.push(p.time)
         arr.push(p.amount)
         alldates.push(p.date)
@@ -263,11 +257,9 @@ return()=>{
         setms(billamount.reduce((sum,pr)=>sum+pr,0))
     
      
-      console.log(loan_amount.reduce((sum,pr)=>sum+pr,0))
       const md=loan_amount.reduce((sum,pr)=> sum+pr,0)
 
       sum=md
-      console.log("sums"+md)
       setmq(md)
       
       if(maps.length){

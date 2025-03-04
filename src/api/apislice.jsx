@@ -25,7 +25,6 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
         const secoundresult = await baseQuery("/refresh", api, extraopt);
 
         if (secoundresult?.data) {
-            console.log(secoundresult.data);
             await api.dispatch(setlogin(secoundresult?.data));
             result = await baseQuery(arg, api, extraopt);
         } else {
