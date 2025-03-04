@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaWhatsapp, FaInstagram,FaTwitter } from 'react-icons/fa'
 import employeeChart from './soschart'
 // import '../index2.css'
 
