@@ -366,7 +366,7 @@
 //       socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
 //         console.log("New Transaction Received:", newTransaction);
 //         setTransactions(prev => {
-//           const exists = prev.some(tx => tx._id === newTransaction._id);
+//           const exists = preve(tx => tx._id === newTransaction._id);
 //           return exists ? prev : [newTransaction, ...prev];
 //         });
 //       });
@@ -1114,7 +1114,7 @@ const Transfer = () => {
 
         socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
           setTransactions((prev) => {
-            const exists = prev.some((tx) => tx._id === newTransaction._id);
+            const exists = preve((tx) => tx._id === newTransaction._id);
             return exists ? prev : [newTransaction, ...prev];
           });
         });

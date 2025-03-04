@@ -14,7 +14,7 @@ const layout = ({allowedroles}) => {
   return (
     <article  className='outlet'>
       {
-          roles.Roles.some(role=>allowedroles.includes(role))?<Outlet/>:
+          roles.Roles.find(role=>allowedroles.includes(role))?<Outlet/>:
         <Navigate to={'/form'} state={{from:location}} replace />
 
         }
