@@ -6,8 +6,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
-    // baseUrl: "https://ict.onrender.com",
+    // baseUrl: "http://localhost:4000",
+    baseUrl: "https://ict.onrender.com",
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
         const token = getState()?.auth?.auth;
