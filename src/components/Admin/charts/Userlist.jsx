@@ -1,6 +1,5 @@
 import React,{useState,useEffect,useRef} from 'react'
 import { io } from 'socket.io-client'
-import img from '../../../assets/images/k.png'
 import {
    TableBody,
    TableCell,
@@ -104,7 +103,7 @@ const Userlist = () => {
           <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }} align="center">{user._id}</TableCell>
           {/* <TableCell sx={{ display: { xs: "none", md: "table-cell" } }} align="center">{user.email}</TableCell> */}
           
-          <TableCell sx={{position:"relative"}} align="center">{user.email} <img  src={user?.img?`http://localhost:4000/image/${user.img}`:img} width={35} height={35} style={{position:"absolute",top:"5px",borderRadius:"50%"}}/> </TableCell>
+          <TableCell sx={{position:"relative"}} align="center">{user.email} <img  src={user?.img?`http://localhost:4000/image/${user.img}`:""} width={35} height={35} style={{position:"absolute",top:"5px",borderRadius:"50%"}}/> </TableCell>
 
           <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}  align="center">{user.account_no}</TableCell>
           <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}  align="center">{user.firstname}</TableCell>
