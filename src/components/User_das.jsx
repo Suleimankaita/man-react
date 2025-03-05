@@ -110,14 +110,16 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       useEffect(() => {
         if (!transactions.length) return;
     
-        const processTransactions = () => {
-          transactions.forEach((tx) => {
-            if (tx._id === id) {
+        const processTransactions = async () => {
+          const userTransactions = transactions.find((t) => t._id === idss);
+  
+          if (userTransactions) {
+            for (let tx of userTransactions.transaction) {
               dispatch(acct(tx.amount));
             }
-          });
+          }
         };
-    
+  
         processTransactions();
     
         return () => {
