@@ -29,91 +29,91 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       const dispatch=useDispatch()
       let isMounted=true
 
-    useEffect(() => {
+  //   useEffect(() => {
       
-      if(isMounted){
-        const man=async()=>{
+  //     if(isMounted){
+  //       const man=async()=>{
 
 
-        if(!audio.current){
+  //       if(!audio.current){
 
-          audio.current=new Audio(a)
-        }
-         if (!socket.current) {
-                socket.current = io("https://ict-tr8s.onrender.com");
-              }
+  //         audio.current=new Audio(a)
+  //       }
+  //        if (!socket.current) {
+  //               socket.current = io("https://ict-tr8s.onrender.com");
+  //             }
           
-              const sock = socket.current;
+  //             const sock = socket.current;
               
-              // ✅ Remove existing listeners before adding new ones
-              socket.current.off("message").on("message", (data) => {
-                setTransactions(data);
-                setfinds(data);
-                // setfind(data)
-              });
-              socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
-                // toast(datas)
-              })
+  //             // ✅ Remove existing listeners before adding new ones
+  //             socket.current.off("message").on("message", (data) => {
+  //               setTransactions(data);
+  //               setfinds(data);
+  //               // setfind(data)
+  //             });
+  //             socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
+  //               // toast(datas)
+  //             })
               
-              socket.current.off("notify").on("notify",(datas)=>{
-                if(datas.id1===id){
-                  let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
-                  toast(man)
-                  // if (Notification.permission === "granted") {
-                    new Notification("New Notification", { body: datas.amount});
-                  // }
-                }
-                toast(null)
-              })
+  //             socket.current.off("notify").on("notify",(datas)=>{
+  //               if(datas.id1===id){
+  //                 let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
+  //                 toast(man)
+  //                 // if (Notification.permission === "granted") {
+  //                   new Notification("New Notification", { body: datas.amount});
+  //                 // }
+  //               }
+  //               toast(null)
+  //             })
         
-              socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-                setTransactions(prev => {
-                  const exists = prev.some(tx => tx._id === newTransaction._id);
-                  return exists ? prev : [newTransaction, ...prev];
+  //             socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
+  //               setTransactions(prev => {
+  //                 const exists = prev.some(tx => tx._id === newTransaction._id);
+  //                 return exists ? prev : [newTransaction, ...prev];
                 
-                });
-              });
-      }
-          man()
-      }
+  //               });
+  //             });
+  //     }
+  //         man()
+  //     }
 
-              return () => {
-                isMounted=false
-                socket.current.off("message");
-                socket.current.off("transactionUpdate");
-                socket.current.off("transactionUpdates");
-                socket.current.off("notify");
+  //             return () => {
+  //               isMounted=false
+  //               socket.current.off("message");
+  //               socket.current.off("transactionUpdate");
+  //               socket.current.off("transactionUpdates");
+  //               socket.current.off("notify");
 
-              };
-      }, [id,isMounted]);
-  let ms;
+  //             };
+  //     }, [id,isMounted]);
+  // let ms;
     
   
     
   
-  if (Notification.permission !== "granted") {
-    Notification.requestPermission();
-  }
-   useEffect(() => {
-        if (!transactions.length) return;
+  // if (Notification.permission !== "granted") {
+  //   Notification.requestPermission();
+  // }
+  //  useEffect(() => {
+  //       if (!transactions.length) return;
     
-        const processTransactions = async () => {
-          const userTransactions = transactions.some(t => t._id === id);
+  //       const processTransactions = async () => {
+  //         const userTransactions = transactions.some(t => t._id === id);
         
   
-          if (userTransactions) {
-            for (let tx of userTransactions.transaction) {
-              dispatch(acct(tx.amount));
-            }
-          }
-        };
+  //         if (userTransactions) {
+  //           for (let tx of userTransactions.transaction) {
+  //             dispatch(acct(tx.amount));
+  //           }
+  //         }
+  //       };
     
-        processTransactions();
+  //       processTransactions();
 
-        return()=>{
+  //       return()=>{
 
-        }
-      }, [transactions, id, dispatch]);
+  //       }
+  //     }, [transactions, id, dispatch]);
 
     return (
       <section className="main">
