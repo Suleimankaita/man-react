@@ -8,7 +8,7 @@
 }
 
 
-@media(prefers-color-scheme:dark){
+/* @media(prefers-color-scheme:dark){
   :root{
     --bg-color:rgb(59, 57, 57);
     --table-bg:rgb(59, 57, 57);
@@ -16,11 +16,11 @@
     --bg_header:rgb(10, 161, 243);
     
     /* --nav_bg:hsl(187, 100%, 84%); */
-      --color: whitesmoke;
-      --inp_bg: rgb(64, 64, 64);
-  }
-  
-}
+      /* --color: whitesmoke; */
+      /* --inp_bg: rgb(64, 64, 64); */
+  /* } */
+   */
+/* } */
 *{
   margin: 0;
   padding: 0;

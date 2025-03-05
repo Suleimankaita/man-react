@@ -1602,12 +1602,12 @@ body{
     transform: translate(-8px,-43px);
 
   } */
-  .box_input  input:not(:placeholder-shown)+.labe{
+  /* .box_input  input:not(:placeholder-shown)+.labe{
     color: rgb(45, 167, 215);
     font-size: 15px;
     transform: translate(-0px,-43px);
   
-  }
+  } */
   .transers_ac input:focus+.labe{
     color: rgb(45, 167, 215);
     font-size: 15px;

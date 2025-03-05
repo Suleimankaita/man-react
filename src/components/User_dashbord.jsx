@@ -87,20 +87,20 @@ const User_dashbord = () => {
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
       },
           {
-          id:1,
+          id:6,
           name:"Transfer",
           img:<FaCoins/>,
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
       },
   
           {
-          id:1,
+          id:7,
           name:"bills",
           img:<FaFileInvoice/>,
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
       },
           {
-          id:1,
+          id:8,
           name:"More",
           img:<FaEllipsisH/>,
           body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",

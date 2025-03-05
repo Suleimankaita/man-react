@@ -98,7 +98,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
         if (!transactions.length) return;
     
         const processTransactions = async () => {
-          const userTransactions = transactions.find(t => t._id === id);
+          const userTransactions = transactions.some(t => t._id === id);
         
   
           if (userTransactions) {
@@ -161,22 +161,20 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
             <br />
             <br />
     
-            <div className="pay_box">
-                <div className="mx">
+            <div className="pay_box" style={{display:"flex",justifyContent:"center"}}>
+                <div className="mx" style={{display:"flex",justifyContent:"center"}}>
                 {
                     secound.map(user=>(
-                    <>
-                      <Link to={`/${user.url}`} className="con_pay">
-                        <div  key={user.id}>
+                      <Link key={user.id} to={`/${user.url}`} className="con_pay">
+                        <div  >
                             <div className="radius">
-                            <h1 style={{color:"rgba(69, 176, 243, 0.88)",fontSize:"50px",width:"100px",textAlign:"center"}}>{user.img}</h1>
+                            <div style={{color:"rgba(69, 176, 243, 0.88)",fontSize:"50px",width:"100px",textAlign:"center"}}>{user.img}</div>
     
                             {/* <img src={user.img} alt="" width={100} height={60} /> */}
                             </div>
                             <p style={{textAlign:"center"}}>{user.name}</p>
                         </div>
                             </Link>
-                        </>
     
                     ))
                 }
@@ -186,20 +184,18 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
             <div className="pay_box">
     
     
-            <div className="mx">
+            <div className="mx" style={{display:"flex",justifyContent:"center"}}>
                 {
                     cons.slice(3,9).map(user=>(
-                    <>
-                    <Link to={user.name}>
-                        <div className="con_pay" key={user.id}>
+                    <Link to={user.name}  key={user.id}>
+                        <div className="con_pay">
                             <div className="radius">
-                                <h1 className='icons_1' style={{color:"rgba(69, 176, 243, 0.88)",width:"100px",textAlign:"center"}}>{user.img}</h1>
+                                <div className='icons_1' style={{color:"rgba(69, 176, 243, 0.88)",width:"100px",textAlign:"center"}}>{user.img}</div>
                             {/* <img src={user.img} alt="" width={100} height={60} /> */}
                             </div>
                             <p>{user.name}</p>
                         </div>
                         </Link>
-                        </>
     
                     ))
                 }
