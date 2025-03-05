@@ -156,7 +156,7 @@ const extendedapi=apislices.injectEndpoints({
             query:({id,addamount,username,id1})=>({
                 url:`/Tran2/${id}`,
                 method:"PUT",
-                body:{amount:addamount,username,id1}
+                body:{addamount,username,id1}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]

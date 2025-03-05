@@ -34,6 +34,7 @@ const Usebuy = () => {
     let me;
     let ismounted=true;
       useEffect(()=>{
+        console.log(act_no)
 
           if(ismounted&&values===true){
             const man=async()=>{

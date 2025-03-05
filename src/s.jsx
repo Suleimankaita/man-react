@@ -17,6 +17,7 @@ const S = () => {
     const {id}=UseAuth()
 
 
+    console.log(id)
 
     const {values,setvalues}=Usebuy()
 

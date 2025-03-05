@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import img from '../../assets/images/hero_1.jpg';
 
 const AddUserFund = () => {
-    const [add, { isSuccess }] = useAmountMutation();
+    const [add, { isSuccess }] = useAdd_TransMutation();
     const dispatch = useDispatch();
     const { data } = useGetpostQuery('', {
         pollingInterval: 1000,
@@ -95,9 +95,9 @@ const AddUserFund = () => {
         e.preventDefault();
         await dispatch(add({
             username: formData.username,
-            amount: Number(formData.amount),
+            addamount: formData.amount,
             id1: formData.id,
-            id: formData.id,
+            id: formData.account_no,
         }));
     };
 

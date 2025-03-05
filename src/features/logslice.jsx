@@ -21,12 +21,14 @@ const auth = createSlice({
     reducers: {
 
         getid: (state, action) => {
+            console.log("!"+action.payload)
             state.getId = action.payload;
             ms = action.payload;
         },
         Accno: (state, action) => {
             state.account_no = action.payload;
             act_no=Number(action.payload);
+            console.log("act"+action.payload)
         },
 
         setlogin: (state, action) => {
@@ -40,6 +42,7 @@ const auth = createSlice({
         Balance: (state, action) => {
             me = Number(action.payload);
             state.amount = me;
+            // console.log(""action.payload)
         },
 
         pricesss: (state, action) => {

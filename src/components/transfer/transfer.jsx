@@ -365,9 +365,11 @@
 
 //       socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
 //         console.log("New Transaction Received:", newTransaction);
-//         setTransactions(prev => {
-//           const exists = preve(tx => tx._id === newTransaction._id);
-//           return exists ? prev : [newTransaction, ...prev];
+//        setTransactions(prev => {
+//   const exists = prev.some(tx => tx._id === newTransaction._id);
+//   return exists ? prev : [newTransaction, ...prev];
+// });
+
 //         });
 //       });
 //     }
@@ -767,7 +769,6 @@
 // // export default transfer;
 
 
-import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { FaSimCard, FaCaretDown, FaCaretRight, FaCarSide, FaUser, FaTimes, FaWallet, FaUnlockAlt, FaNotEqual } from 'react-icons/fa';
 import { pricesss } from '../../features/logslice';
@@ -798,7 +799,6 @@ import a from './note.mp3';
 const Transfer = () => {
   const noti = new Audio(a);
 
-  const socketRef = useRef(null); // ✅ Store the socket instance
   const { data, isLoading, isSuccess } = useGetpostQuery('post', {
     pollingInterval: 1500,
     refetchOnFocus: true,
@@ -965,6 +965,7 @@ const Transfer = () => {
       // disp(pricesss({ credit: amount, phone }));
 
       dispatch(Accno(amt));
+
       dispatch(pricesss({ credit: `${amount}`, phone: `${amt}` }));
 
       dispatch(Balance(amount));
@@ -1007,7 +1008,7 @@ const Transfer = () => {
         )
       );
     }
-  }, [credit, opens]);
+  }, [credit, opens,dispatch]);
 
   const [status, setstatus] = useState('');
   const [name, setname] = useState('');
@@ -1097,7 +1098,7 @@ const Transfer = () => {
           setfind(data);
         });
         socket.current.off('transactionUpdates').on('transactionUpdates', (datas) => {
-          // toast(datas)
+          toast(datas)
         });
 
         socket.current.off('notify').on('notify', (datas) => {
@@ -1114,7 +1115,7 @@ const Transfer = () => {
 
         socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
           setTransactions((prev) => {
-            const exists = preve((tx) => tx._id === newTransaction._id);
+            const exists = prev.some((tx) => tx._id === newTransaction._id);
             return exists ? prev : [newTransaction, ...prev];
           });
         });

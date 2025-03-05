@@ -204,9 +204,10 @@ const bill = () => {
             });
     
             socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
-              setTransactions((prev) => {
-                const exists = prev.find((tx) => tx._id === newTransaction._id);
+              setTransactions(prev => {
+                const exists = prev.some(tx => tx._id === newTransaction._id);
                 return exists ? prev : [newTransaction, ...prev];
+              
               });
             });
           };

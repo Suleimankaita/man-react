@@ -106,7 +106,7 @@ const Usersection = () => {
                     <div style={{display:"flex",flexFlow:"column",alignItems:"center",width:"100%"}}>
                     <div className='fl' >
                     <div className="img_profile">
-                        <img src={find?.img?`http://localhost:4000/image/${find?.img}`:img} alt="" width={100} height={100} />
+                        <img src={find?.img?`http://https://ict-tr8s.onrender.com/image/${find?.img}`:img} alt="" width={100} height={100} />
                     </div>
     
                     <div className="User_details">
