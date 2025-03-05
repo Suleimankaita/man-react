@@ -27,98 +27,103 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       //  const [find,setfind]=useState([])
       const [transactions,setTransactions]=useState([])
       const dispatch=useDispatch()
-      let isMounted=true
+      // let isMounted=true
+      let isMounted = useRef(true); // ✅ Use ref instead of a boolean variable
 
-    useEffect(() => {
-      
-      if(isMounted){
-        const man=async()=>{
-
+      useEffect(() => {
+        isMounted.current = true; // ✅ Ensures mounted state is properly managed
+    
+        const man = async () => {
+          if (!audio.current) {
+            audio.current = new Audio(a);
+          }
+    
           if (!socket.current) {
-            socket.current = io("https://ict-tr8s.onrender.com",{
-              transports: ["websocket"], // Force WebSockets
-              withCredentials: true
+            socket.current = io("https://ict-tr8s.onrender.com", {
+              transports: ["websocket"], // ✅ Force WebSockets (Fixes iOS issue)
+              withCredentials: true,
             });
           }
-          
-        if(!audio.current){
-
-          audio.current=new Audio(a)
+    
+          const sock = socket.current;
+    
+          // ✅ Remove existing listeners before adding new ones
+          sock.off("message").on("message", (data) => {
+            if (isMounted.current) {
+              setTransactions(data);
+              setfinds(data);
+            }
+          });
+    
+          sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
+            if (isMounted.current) {
+              // toast(datas)
+            }
+          });
+    
+          sock.off("notify").on("notify", (datas) => {
+            if (isMounted.current && datas.id1 === id) {
+              let man = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
+              toast(man);
+              try {
+                new Notification("New Notification", { body: datas.amount });
+              } catch (err) {
+                console.warn("Notification error:", err);
+              }
+            }
+            toast(null);
+          });
+    
+          sock.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
+            if (isMounted.current) {
+              setTransactions((prev) => {
+                const exists = prev.some((tx) => tx._id === newTransaction._id);
+                return exists ? prev : [newTransaction, ...prev];
+              });
+            }
+          });
+        };
+    
+        man();
+    
+        return () => {
+          isMounted.current = false; // ✅ Ensures cleanup on unmount
+          if (socket.current) {
+            socket.current.off("message");
+            socket.current.off("transactionUpdate");
+            socket.current.off("transactionUpdates");
+            socket.current.off("notify");
+          }
+        };
+      }, [id]); // ✅ Removed `isMounted` from dependencies (not needed)
+    
+      // ✅ Request Notification Permission Safely
+      useEffect(() => {
+        if (Notification.permission !== "granted") {
+          Notification.requestPermission().catch((err) =>
+            console.warn("Notification permission error:", err)
+          );
         }
-       
-          
-              const sock = socket.current;
-              
-              // ✅ Remove existing listeners before adding new ones
-              socket.current.off("message").on("message", (data) => {
-                setTransactions(data);
-                setfinds(data);
-                // setfind(data)
-              });
-              socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
-                // toast(datas)
-              })
-              
-              socket.current.off("notify").on("notify",(datas)=>{
-                if(datas.id1===id){
-                  let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
-                  toast(man)
-                  // if (Notification.permission === "granted") {
-                    new Notification("New Notification", { body: datas.amount});
-                  // }
-                }
-                toast(null)
-              })
-        
-              socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-                setTransactions(prev => {
-                  const exists = prev.some(tx => tx._id === newTransaction._id);
-                  return exists ? prev : [newTransaction, ...prev];
-                
-                });
-              });
-      }
-          man()
-      }
-
-              return () => {
-                isMounted=false
-                socket.current.off("message");
-                socket.current.off("transactionUpdate");
-                socket.current.off("transactionUpdates");
-                socket.current.off("notify");
-
-              };
-      }, [id,isMounted]);
-  let ms;
+      }, []);
     
-  
-    
-  
-  if (Notification.permission !== "granted") {
-    Notification.requestPermission();
-  }
-   useEffect(() => {
+      // ✅ Process Transactions Safely
+      useEffect(() => {
         if (!transactions.length) return;
     
-        const processTransactions = async () => {
-          const userTransactions = transactions.some(t => t._id === id);
-        
-  
-          if (userTransactions) {
-            for (let tx of userTransactions.transaction) {
+        const processTransactions = () => {
+          transactions.forEach((tx) => {
+            if (tx._id === id) {
               dispatch(acct(tx.amount));
             }
-          }
+          });
         };
     
         processTransactions();
-
-        return()=>{
-
-        }
+    
+        return () => {
+          // Cleanup logic if needed
+        };
       }, [transactions, id, dispatch]);
-
     return (
       <section className="main">
     <ToastContainer/>
