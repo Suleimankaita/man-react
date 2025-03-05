@@ -29,93 +29,94 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       const dispatch=useDispatch()
       let isMounted=true
 
-    // useEffect(() => {
+    useEffect(() => {
       
-      useEffect(() => {
-        let isMounted = true;
-    
-        const initializeSocket = async () => {
-          if (!audio.current) {
-            audio.current = new Audio(a);
-          }
-    
+      if(isMounted){
+        const man=async()=>{
+
           if (!socket.current) {
-            socket.current = io("https://ict-tr8s.onrender.com", {
-              transports: ["websocket"], // Force WebSockets (fixes iOS issues)
+            socket.current = io("https://ict-tr8s.onrender.com",{
+              transports: ["websocket"], // Force WebSockets
               withCredentials: true
             });
-    
-            const sock = socket.current;
-    
-            // ✅ Remove old listeners before adding new ones
-            sock.off("message").on("message", (data) => {
-              if (isMounted) {
-                setTransactions(data);
-              }
-            });
-    
-            sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
-              if (isMounted) {
-                toast(datas);
-              }
-            });
-    
-            sock.off("notify").on("notify", (datas) => {
-              if (isMounted && datas.id1 === id) {
-                let message = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
-                toast(message);
-                new Notification("New Notification", { body: datas.amount });
-              }
-            });
-    
-            sock.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-              if (isMounted) {
-                setTransactions((prev) => {
-                  const exists = prev.some((tx) => tx._id === newTransaction._id);
-                  return exists ? prev : [newTransaction, ...prev];
-                });
-              }
-            });
           }
-        };
-    
-        initializeSocket();
-    
-        return () => {
-          isMounted = false;
-          if (socket.current) {
-            socket.current.off("message");
-            socket.current.off("transactionUpdate");
-            socket.current.off("transactionUpdates");
-            socket.current.off("notify");
-          }
-        };
-      }, [id]); // Removed isMounted from dependencies (no need to track it)
-    
-      // Request Notification Permission
-      useEffect(() => {
-        if (Notification.permission !== "granted") {
-          Notification.requestPermission();
+          
+        if(!audio.current){
+
+          audio.current=new Audio(a)
         }
-      }, []);
+       
+          
+              const sock = socket.current;
+              
+              // ✅ Remove existing listeners before adding new ones
+              socket.current.off("message").on("message", (data) => {
+                setTransactions(data);
+                setfinds(data);
+                // setfind(data)
+              });
+              socket.current.off("transactionUpdates").on("transactionUpdates",(datas)=>{
+                // toast(datas)
+              })
+              
+              socket.current.off("notify").on("notify",(datas)=>{
+                if(datas.id1===id){
+                  let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
+                  toast(man)
+                  // if (Notification.permission === "granted") {
+                    new Notification("New Notification", { body: datas.amount});
+                  // }
+                }
+                toast(null)
+              })
+        
+              socket.current.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
+                setTransactions(prev => {
+                  const exists = prev.some(tx => tx._id === newTransaction._id);
+                  return exists ? prev : [newTransaction, ...prev];
+                
+                });
+              });
+      }
+          man()
+      }
+
+              return () => {
+                isMounted=false
+                socket.current.off("message");
+                socket.current.off("transactionUpdate");
+                socket.current.off("transactionUpdates");
+                socket.current.off("notify");
+
+              };
+      }, [id,isMounted]);
+  let ms;
     
-      // Process transactions safely
-      useEffect(() => {
+  
+    
+  
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+   useEffect(() => {
         if (!transactions.length) return;
     
-        const processTransactions = () => {
-          transactions.forEach((tx) => {
-            if (tx._id === id) {
+        const processTransactions = async () => {
+          const userTransactions = transactions.some(t => t._id === id);
+        
+  
+          if (userTransactions) {
+            for (let tx of userTransactions.transaction) {
               dispatch(acct(tx.amount));
             }
-          });
+          }
         };
     
         processTransactions();
-    
-        return () => {
-          // Cleanup logic if needed
-        };
+
+        return()=>{
+
+        }
       }, [transactions, id, dispatch]);
 
     return (
