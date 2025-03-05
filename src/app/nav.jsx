@@ -70,8 +70,10 @@ const nav = () => {
   useEffect(() => {
     if (isSuccess) {
       setTimeout(() => {
+        localStorage.removeItem("arrs")
+        localStorage.removeItem("arr")
         localStorage.removeItem("roles")
-      }, 100);
+      }, 2000);
       navigate('/form')
     }
   }, [isSuccess, navigate])

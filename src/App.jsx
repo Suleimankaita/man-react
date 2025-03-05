@@ -40,6 +40,7 @@ import Login from './components/forms/login'
  import { useGetpostQuery } from './features/appslice'
  import Bills from './components/Admin/AllBill'
 //  import LoanSection from './components/Loan/Loan'
+import Pre from './app/pre'
 import Loan_section from './components/Admin/Loan_section'
 import ResetPasswordPage from './reset'
  const App = () => {
@@ -54,6 +55,7 @@ import ResetPasswordPage from './reset'
   const {Isadmin,User}=UseAuth()
   return (
   <Routes>
+    {/* <Route element={<Pre/>}></Route> */}
     <Route path='/form' element={<Sign_in/>}/>
     {/* <Route path='/login' element={<Login/>}/> */}
     {/* <Route path='/s' element={<S/>}/> */}

@@ -23,7 +23,7 @@ import { logout } from "../features/logslice"
                     
                 const {data}=queryFulfilled;
                  console.log(data);
-                 dispatch(logout);
+                 dispatch(logout());
                  setTimeout(()=>{
                    dispatch(apislice.util.resetApiState())
                  },1000)

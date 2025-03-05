@@ -6,7 +6,7 @@ const postadapter=createEntityAdapter()
 
 const initialState=postadapter.getInitialState()
 
-const extendedapi=apislices.injectEndpoints({
+export const extendedapi=apislices.injectEndpoints({
     endpoints:(builder)=>({
         getbills:builder.query({
             query:()=> '/paybill',

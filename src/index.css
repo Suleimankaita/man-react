@@ -587,9 +587,11 @@ body{
   .pay_box{
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-flow: row wrap;
     width: 100%;
-    margin: 10px;
+    margin-top: 10px;
+    padding: 5px;
     background-color: white;
     margin-bottom: 20px;
     /* height: 300px; */
@@ -617,7 +619,7 @@ body{
     /* font-size: 35px; */
   }
   .con_pay{
-    width: 100px;
+    width: 95px;
     height: 120px;
     background-color: #ffffff;
     margin-right:20px;
@@ -635,10 +637,12 @@ body{
     font-size: 13px;
   }
   .mx{
-    width: 100%;
     display: flex;
+    justify-content:center ;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+    width: 100%;
+    margin: 0 auto;
+    /* justify-content: space-evenly; */
   }
   .con_pay:hover{
     background-color: gray;
@@ -652,7 +656,7 @@ body{
     width: 100%;
     overflow-y: hidden;
     align-items: center;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
   
   }
   .dashboard-header p {
@@ -1546,6 +1550,13 @@ body{
     transform: translate(-268px,13px);
 
   }
+  .transers_ac .labe{
+    position: absolute;
+    color: rgb(31, 31, 31);
+    transition: 0.5s ease-in-out;
+    transform: translate(-0px,0px);
+
+  }
   .box_input .label{
     position: absolute;
     transition: 0.5s ease-in-out;
@@ -1556,26 +1567,26 @@ body{
     color: rgb(45, 167, 215);
     font-size: 15px;
     transform: translate(-268px,-13px);
-
+    
   }
   .box_input input:focus+.label{
     color: rgb(45, 167, 215);
     font-size: 15px;
     transform: translate(-8px,-43px);
-
+    
   }
   .box_input  input:not(:placeholder-shown)+.labe{
     color: rgb(45, 167, 215);
     font-size: 15px;
-    transform: translate(-268px,-13px);
-  
+    transform: translate(-268px,-13px); 
   }
   .box_input  input:not(:placeholder-shown)+.label{
     color: rgb(45, 167, 215);
     font-size: 15px;
     transform: translate(-8px,-43px);
-  
+    
   }
+ 
   .box_input input::-webkit-inner-spin-button{
     display: none;
   }
@@ -1591,12 +1602,24 @@ body{
     transform: translate(-8px,-43px);
 
   } */
-  /* .box_input  input:not(:placeholder-shown)+label{
+  .box_input  input:not(:placeholder-shown)+.labe{
     color: rgb(45, 167, 215);
     font-size: 15px;
-    transform: translate(-8px,-43px);
+    transform: translate(-0px,-43px);
   
-  } */
+  }
+  .transers_ac input:focus+.labe{
+    color: rgb(45, 167, 215);
+    font-size: 15px;
+    transform: translate(-0px,-22px);
+
+  }
+  .transers_ac  input:not(:placeholder-shown)+.labe{
+    color: rgb(45, 167, 215);
+    font-size: 15px;
+    transform: translate(-0px,-22px);
+  
+  }
 
 }
 @media screen and (min-width:620px) and (max-width:900px) {
@@ -1607,6 +1630,25 @@ body{
     justify-content: center;
     align-items: center;
     flex-flow: row wrap;
+  
+  }
+  .transers_ac .labe{
+    position: absolute;
+    color: rgb(31, 31, 31);
+    transition: 0.5s ease-in-out;
+    transform: translate(-0px,0px);
+
+  }
+  .transers_ac input:focus+.labe{
+    color: rgb(45, 167, 215);
+    font-size: 15px;
+    transform: translate(-0px,-22px);
+
+  }
+  .transers_ac  input:not(:placeholder-shown)+.labe{
+    color: rgb(45, 167, 215);
+    font-size: 15px;
+    transform: translate(-0px,-22px);
   
   }
   .btn_url{
