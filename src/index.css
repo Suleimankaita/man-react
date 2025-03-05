@@ -67,6 +67,7 @@ body{
   background-color: var(--bg_color);
   height: 100vh;
   overflow: hidden;
+  display: block !important;
 }
 .outlet{
   width: 100%;
