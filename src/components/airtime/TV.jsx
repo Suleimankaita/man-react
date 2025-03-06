@@ -208,6 +208,7 @@ const socket = useRef(null);
 
  let isMounted=true
       useEffect(() => {
+        if(!isMounted) return;
          if(isMounted){
    
          const man=async()=>{
@@ -233,17 +234,17 @@ const socket = useRef(null);
                      audio.current.play().catch((err) => console.log("Sound error:", err));
                      let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
                      toast(man)
-                     if ("Notification" in window) {
-                      if (Notification.permission === "granted") {
-                        new Notification("New Notification", { body: datas.amount });
-                      } else if (Notification.permission !== "denied") {
-                        Notification.requestPermission().then((permission) => {
-                          if (permission === "granted") {
-                            new Notification("New Notification", { body: datas.amount });
-                          }
-                        });
-                      }
+                      if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                  new Notification("New Notification", { body: datas.amount });
+                } else if (Notification.permission !== "denied") {
+                  Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                      new Notification("New Notification", { body: datas.amount });
                     }
+                  });
+                }
+              }
                    }
                    toast(null)
                  })

@@ -32,7 +32,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       const noti = useRef(new Audio(a)); 
       
       useEffect(() => {
-      
+      if(!isMounted) return;
         if(isMounted){
 
         const man = async () => {

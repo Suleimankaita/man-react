@@ -66,43 +66,36 @@ const History_id = () => {
     const [users,setusers]=useState([])
     const [find,setfind]=useState([])
 
-    useEffect(()=>{
-        if(!socketRef.current){
-            socketRef.current=io("https://ict-tr8s.onrender.com")
+    useEffect(() => {
+        if (!socketRef.current) {
+            socketRef.current = io("https://ict-tr8s.onrender.com", {
+                transports: ["websocket"],
+                reconnection: true,
+            });
         }
-        const sock=socketRef.current;
-        
-        sock.off("message").on("message",(data)=>{
-            setusers(data)
+        const sock = socketRef.current;
 
-        })
-            return()=>{
-                sock.off("message")
-            }
-    },[])
+        sock.off("message").on("message", (data) => {
+            setusers(data);
+        });
 
-    useEffect(()=>{
+        return () => {
+            sock.off("message");
+        };
+    }, []);
 
-        const man=async()=>{
-            
-            if(!users.length)return
-            // if(users){
-                const finds=users.map(user=>{
-                    const findd=user.transaction.find(use=>use._id===id)
-                    
-                    if(findd){
-                        setfind(findd)
-
-                    }
-
-                })
-
-
-
-    }
-    man()
-
-    },[users,find])
+    useEffect(() => {
+        if (!users.length) return;
+        const finds = users.map(user => {
+          const findd = user.transaction.find(use => use._id === id);
+          return findd;
+        }).filter(Boolean); // Filter out undefined values
+      
+        if (finds.length) {
+          setfind(finds[0]); // Set only the first found transaction
+        }
+      }, [users, id]); // Remove `find` from dependency
+      
 
 
     
@@ -122,14 +115,24 @@ const History_id = () => {
         },[id,users])
     
     
-        const mn=async()=>{
-          const m=await  ups({id}).unwrap()
-        }
-        useEffect(()=>{
-          
-          mn()
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    await ups({ id }).unwrap();
+                } catch (error) {
+                    console.error("API call failed:", error);
+                }
+            };
+            fetchData();
+        }, [id]); 
+
+
+        const handlePrint = () => {
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        };
     
-        },[])
 
   return (
     <section className='User_id'>
@@ -152,7 +155,7 @@ const History_id = () => {
             <p>Name: {find.name}</p>
             </div>
             <div className="button_print">
-                <button  onClick={()=>window.print()}>download</button>
+                <button  onClick={()=>handlePrint()}>download</button>
                 <button  onClick={()=>nav(-1)}>close</button>
             </div>
             </>

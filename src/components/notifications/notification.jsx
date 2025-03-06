@@ -1,153 +1,142 @@
-import React from 'react'
-import obj from '../../hooks/obj'
-import { Link } from 'react-router-dom'
-import { io } from 'socket.io-client'
-import { useRef,useEffect,useState } from 'react'
-import UseAuth from '../../hooks/UseAuth'
-import { useGetpostQuery } from '../../features/appslice'
-import a from '../transfer/note.mp3'
-import { useRefMutation } from '../../features/appslice'
-import { ToastContainer,toast } from 'react-toastify'
-import { FaExclamationCircle } from 'react-icons/fa'
+import React, { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { io } from 'socket.io-client';
+import { useGetpostQuery } from '../../features/appslice';
+import a from '../transfer/note.mp3';
+import { useRefMutation } from '../../features/appslice';
+import { ToastContainer, toast } from 'react-toastify';
+import { FaExclamationCircle } from 'react-icons/fa';
+import UseAuth from '../../hooks/UseAuth';
 
-const notification = () => {
-     
-    const {}=useGetpostQuery('',{
-        pollingInterval:1500,
-        refetchOnFocus:true
-    })
-    const [ups]=useRefMutation()
-    // const {users,setusers}=obj()
-    const {id}=UseAuth()
-    const socketRef=useRef(null)
-    const audio=useRef(null)
-    const socket=useRef(null)
-    const dateNow=new Date().toISOString().split("T")[0];
+const Notification = () => {
+    useGetpostQuery('', {
+        pollingInterval: 1500,
+        refetchOnFocus: true,
+    });
 
-    const [users,setusers]=useState([])
-    const [dates,setdate]=useState(dateNow)
-    const [find,setfind]=useState([])
+    const [ups] = useRefMutation ? useRefMutation() : [];
+    const { id } = UseAuth();
+    const socketRef = useRef(null);
+    const audioRef = useRef(null);
+    const dateNow = new Date().toISOString().split("T")[0];
 
-    useEffect(()=>{
-        if(!socketRef.current){
-            socketRef.current=io("https://ict-tr8s.onrender.com")
+    const [users, setUsers] = useState([]);
+    const [dates, setDate] = useState(dateNow);
+    const [find, setFind] = useState([]);
+    const [mans, setMans] = useState([]);
+
+    // ✅ Establish WebSocket Connection
+    useEffect(() => {
+        if (!socketRef.current) {
+            socketRef.current = io("https://ict-tr8s.onrender.com", {
+                transports: ["websocket"],
+                reconnection: true,
+            });
         }
-        const sock=socketRef.current;
-        
-        sock.off("message").on("message",(data)=>{
-            setusers(data)
+        const sock = socketRef.current;
 
-        })
-            return()=>{
-                sock.off("message")
+        sock.off("message").on("message", (data) => {
+            setUsers(data);
+        });
+
+        return () => {
+            sock.off("message");
+        };
+    }, []);
+
+    // ✅ Handle Notifications & Audio
+    useEffect(() => {
+        if (!socketRef.current) return;
+
+        const sock = socketRef.current;
+
+        if (!audioRef.current) {
+            audioRef.current = new Audio(a);
+            audioRef.current.preload = "auto"; // Ensures it is loaded before playing
+        }
+
+        sock.off("notify").on("notify", (datas) => {
+            if (datas.id1 === id) {
+                const playAudio = async () => {
+                    try {
+                        await audioRef.current.play();
+                    } catch (err) {
+                        console.log("Sound error:", err);
+                    }
+                };
+                playAudio();
+
+                let message = `${datas.name} \n NGN${datas.amount} ${datas.time}`;
+                toast(message);
+
+                if ("Notification" in window) {
+                    if (Notification.permission === "granted") {
+                        new Notification("New Notification", { body: `NGN${datas.amount}` });
+                    } else if (Notification.permission !== "denied") {
+                        Notification.requestPermission().then((permission) => {
+                            if (permission === "granted") {
+                                new Notification("New Notification", { body: `NGN${datas.amount}` });
+                            }
+                        });
+                    }
+                }
             }
-    },[])
+        });
 
-
-        useEffect(() => {
-          if (!socket.current) {
-            socket.current = io("https://ict-tr8s.onrender.com");
-          }
-      
-          const sock = socket.current;
-      
-        
-          
-          sock.off("notify").on("notify",(datas)=>{
-            
-            if(!audio.current){
-    
-                 audio.current=new Audio(a)
-            }
-
-            if(datas.id1===id){
-              let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
-              toast(man)
-              // if (Notification.permission === "granted") {
-                new Notification("New Notification", { body: datas.amount});
-              // }
-            }
-            toast(null)
-          })
-    
-        
-      
-          return () => {
-        
+        return () => {
             sock.off("notify");
-          };
-        }, [id,audio]);
-    let ms;
-      
+        };
+    }, [id]);
 
-    
-      
-    
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
-    }
+    // ✅ Fetch Transactions
+    useEffect(() => {
+        if (!users.length) return;
 
-    useEffect(()=>{
-
-        const man=async()=>{
-
-            if(!users.length)return
-            
-            const finds=users.find(user=>user._id===id)
-
-            setfind(finds.transaction)
-
-
-    }
-    man()
-
-    },[id,users])
-
-
-
-     const [mans,setmans]=useState([])
-      useEffect(()=>{
-
-
-        if(find.length){
-          
-          const al= find.filter(date=>{return date.date===dates})
-          setmans(al)
+        const user = users.find(user => user._id === id);
+        if (user) {
+            setFind(user.transaction || []);
         }
-      },[dates,find])     
+    }, [id, users]);
 
-  
-
-
-return (
-<section className='history_con'>
-<div style={{display:"flex",justifyContent:"flex-end",width:"90%",margin:"20px"}}>
-
-  <input type="date" name="" value={dates} onChange={(e)=>setdate(e.target.value.split('T')[0])} id="" />
-</div>
-    <ToastContainer/>
-        {
-          find.length&&mans.length?(
-          mans.sort((a, b) => b.transaction_id - a.transaction_id).map((user) => (
-    <div style={{ position: "relative" }} className="transaction" key={user._id}>
-      <div className={user.seen === false ? "seenss" : "noe"}></div>
-      <Link to={`/History/${user._id}`}>
-        <div className="pay">
-          <p>{user.name ? user.name.slice(0, user.name.indexOf("@")) : ""}</p>
-          <p className={user.status === "successful" ? "sucess" : user.status === "pending" ? "pending" : "fail"}>
-            {user.status}
-          </p>
-        </div>
-        <br />
-        <p>{user.date}</p>
-      </Link>
-    </div>
-  ))
-):(<div style={{textAlign:"center",margin:10,height:"60vh",display:"flex",justifyContent:"center",alignItems:"center"}}><FaExclamationCircle style={{color:"tomato",fontSize:"25px"}}/><h1>Transaction not found</h1></div>)
+    // ✅ Filter Transactions by Date
+    useEffect(() => {
+        if (find.length) {
+            const filtered = find.filter(txn => txn.date === dates);
+            setMans(filtered);
         }
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    </section>  
-)
-}
+    }, [dates, find]);
 
-export default notification
+    return (
+        <section className='history_con'>
+            <div style={{ display: "flex", justifyContent: "flex-end", width: "90%", margin: "20px" }}>
+                <input type="date" value={dates} onChange={(e) => setDate(e.target.value.split('T')[0])} />
+            </div>
+            <ToastContainer />
+            {find.length && mans.length ? (
+                mans.sort((a, b) => b.transaction_id - a.transaction_id).map((user) => (
+                    <div key={user._id} style={{ position: "relative" }} className="transaction">
+                        <div className={user.seen === false ? "seenss" : "noe"}></div>
+                        <Link to={`/History/${user._id}`}>
+                            <div className="pay">
+                                <p>{user.name ? user.name.split("@")[0] : ""}</p>
+                                <p className={user.status === "successful" ? "sucess" : user.status === "pending" ? "pending" : "fail"}>
+                                    {user.status}
+                                </p>
+                            </div>
+                            <br />
+                            <p>{user.date}</p>
+                        </Link>
+                    </div>
+                ))
+            ) : (
+                <div style={{ textAlign: "center", margin: 10, height: "60vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <FaExclamationCircle style={{ color: "tomato", fontSize: "25px" }} />
+                    <h1>Transaction not found</h1>
+                </div>
+            )}
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        </section>
+    );
+};
+
+export default Notification;
