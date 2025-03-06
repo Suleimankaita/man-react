@@ -28,79 +28,97 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       const [transactions,setTransactions]=useState([])
       const dispatch=useDispatch()
       let isMounted = true;
+      // const isMounted =useRef( true);
+      const noti = useRef(new Audio(a)); 
+      
+      useEffect(() => {
+      
+        if(isMounted){
 
-      useEffect(() => {
-        if (isMounted) {
-          const man = async () => {
-            if (!socket.current) {
-              socket.current = io('https://ict-tr8s.onrender.com',{
-                   transports: ['websocket'],
-            secure: true,
-              });
-            }
-    
-            const sock = socket.current;
-    
-            // ✅ Remove existing listeners before adding new ones
-            socket.current.off('message').on('message', (data) => {
-              setTransactions(data);
-              // setfind(data);
+        const man = async () => {
+          if (!socket.current) {
+            socket.current = io("https://ict-tr8s.onrender.com", {
+              transports: ["websocket"],
+              secure: true,
             });
-            socket.current.off('transactionUpdates').on('transactionUpdates', (datas) => {
-              toast(datas)
-            });
+          }
     
-            socket.current.off('notify').on('notify', (datas) => {
-              // if (datas.id1 === id) {
-              //   noti.play().catch((err) => console.log('Sound error:', err));
-              //   let man = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
-              //   toast(man);
-              //   // if (Notification.permission === "granted") {
-              //   new Notification('New Notification', { body: datas.amount });
-              //   // }
-              // }
-              // toast(null);
-            });
+          const sock = socket.current;
     
-            socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
-              setTransactions((prev) => {
-                const exists = prev.some((tx) => tx._id === newTransaction._id);
-                return exists ? prev : [newTransaction, ...prev];
-              });
-            });
-          };
-          man();
-        }
+          // ✅ Remove existing listeners before adding new ones
+          sock.off("message").on("message", (data) => {
+            setTransactions(data);
+          });
     
-        return () => {
-          isMounted = false;
-          socket.current.off('message');
-          socket.current.off('transactionUpdate');
-          socket.current.off('transactionUpdates');
-          socket.current.off('notify');
-        };
-      }, [id, data]);
-      let ms;
+          sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
+            toast(datas);
+          });
     
-      // if (Notification.permission !== 'granted') {
-      //   Notification.requestPermission();
-      // }
-      useEffect(() => {
-        if (isMounted) {
-          if (!transactions.length) return;
+          sock.off("notify").on("notify", (datas) => {
+            if (datas.id1 === id) {
+              // ✅ FIXED: Play sound only after user clicks
+              document.addEventListener(
+                "click",
+                () => {
+                  noti.current.play().catch((err) => console.log("Sound error:", err));
+                },
+                { once: true }
+              );
     
-          const processTransactions = async () => {
-            const userTransactions = transactions.find((t) => t._id === id);
+              let man = `${datas.name} \n NGN${datas.amount} ${datas.time}`;
+              toast(man);
     
-            if (userTransactions) {
-              for (let tx of userTransactions.transaction) {
-                dispatch(acct(tx.amount));
+              // ✅ FIXED: Handle Notifications properly
+              if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                  new Notification("New Notification", { body: datas.amount });
+                } else if (Notification.permission !== "denied") {
+                  Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                      new Notification("New Notification", { body: datas.amount });
+                    }
+                  });
+                }
               }
             }
-          };
+          });
     
-          processTransactions();
-        }
+          sock.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
+            setTransactions((prev) => {
+              const exists = prev.some((tx) => tx._id === newTransaction._id);
+              return exists ? prev : [newTransaction, ...prev];
+            });
+          });
+        };
+    
+        man();
+      }
+    
+        return () => {
+          isMounted = false; // ✅ FIXED: Correct cleanup
+          if (socket.current) {
+            socket.current.off("message");
+            socket.current.off("transactionUpdate");
+            socket.current.off("transactionUpdates");
+            socket.current.off("notify");
+          }
+        };
+      }, [id, data]);
+    
+      useEffect(() => {
+        if (!transactions.length) return;
+    
+        const processTransactions = async () => {
+          const userTransactions = transactions.find((t) => t._id === id);
+    
+          if (userTransactions) {
+            for (let tx of userTransactions.transaction) {
+              dispatch(acct(tx.amount));
+            }
+          }
+        };
+    
+        processTransactions();
       }, [transactions, id, dispatch]);
     
     return (
