@@ -57,7 +57,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
     
           sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
             if (isMounted.current) {
-              // toast(datas)
+              toast(datas)
             }
           });
     
@@ -111,7 +111,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
         if (!transactions.length) return;
     
         const processTransactions = async () => {
-          const userTransactions = transactions.find((t) => t._id === id);
+          const userTransactions = transactions.some((t) => t._id === id);
   
           if (userTransactions) {
             for (let tx of userTransactions.transaction) {
