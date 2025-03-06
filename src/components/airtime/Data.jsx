@@ -312,9 +312,17 @@ const socket = useRef(null);
                     audio.current.play().catch((err) => console.log("Sound error:", err));
                     let man=`${datas.name} \n\r NGN${datas.amount} ${datas.time}`
                     toast(man)
-                    // if (Notification.permission === "granted") {
-                      new Notification("New Notification", { body: datas.amount});
-                    // }
+                    if ("Notification" in window) {
+                      if (Notification.permission === "granted") {
+                        new Notification("New Notification", { body: datas.amount });
+                      } else if (Notification.permission !== "denied") {
+                        Notification.requestPermission().then((permission) => {
+                          if (permission === "granted") {
+                            new Notification("New Notification", { body: datas.amount });
+                          }
+                        });
+                      }
+                    }
                   }
                   toast(null)
                 })

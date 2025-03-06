@@ -130,7 +130,17 @@ const card = () => {
             audio.current.play().catch((err) => console.log("Sound error:", err));
             let message = `${datas.name}\n\r NGN${datas.amount} ${datas.time}`;
             toast(message);
-            new Notification("New Notification", { body: datas.amount });
+            if ("Notification" in window) {
+              if (Notification.permission === "granted") {
+                new Notification("New Notification", { body: datas.amount });
+              } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then((permission) => {
+                  if (permission === "granted") {
+                    new Notification("New Notification", { body: datas.amount });
+                  }
+                });
+              }
+            }
           }
         });
   

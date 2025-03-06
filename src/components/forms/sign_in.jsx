@@ -90,7 +90,7 @@ const sign_in = () => {
       
         <button className='btn_url' onClick={show}>{open?"Login":"Sign in"}</button>
           
-          <a href="/forget">forgot password</a>
+          <Link  to={"/forget"}>forgot password</Link >
 
        
       </div>
