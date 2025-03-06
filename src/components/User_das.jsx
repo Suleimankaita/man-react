@@ -34,8 +34,8 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
           const man = async () => {
             if (!socket.current) {
               socket.current = io('https://ict-tr8s.onrender.com',{
-                transports: ['websocket'],
-                secure: true,
+                   transports: ['websocket'],
+            secure: true,
               });
             }
     
@@ -51,15 +51,15 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
             });
     
             socket.current.off('notify').on('notify', (datas) => {
-              if (datas.id1 === id) {
-                noti.play().catch((err) => console.log('Sound error:', err));
-                let man = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
-                toast(man);
-                // if (Notification.permission === "granted") {
-                new Notification('New Notification', { body: datas.amount });
-                // }
-              }
-              toast(null);
+              // if (datas.id1 === id) {
+              //   noti.play().catch((err) => console.log('Sound error:', err));
+              //   let man = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
+              //   toast(man);
+              //   // if (Notification.permission === "granted") {
+              //   new Notification('New Notification', { body: datas.amount });
+              //   // }
+              // }
+              // toast(null);
             });
     
             socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
@@ -82,13 +82,9 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       }, [id, data]);
       let ms;
     
-      if (Notification.permission !== 'granted') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            console.log('Notification permission granted.');
-          }
-        });
-      }
+      // if (Notification.permission !== 'granted') {
+      //   Notification.requestPermission();
+      // }
       useEffect(() => {
         if (isMounted) {
           if (!transactions.length) return;
