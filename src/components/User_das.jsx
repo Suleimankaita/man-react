@@ -111,7 +111,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
         if (!transactions.length) return;
     
         const processTransactions = async () => {
-          const userTransactions = transactions.find((t) => t._id === idss);
+          const userTransactions = transactions.find((t) => t._id === id);
   
           if (userTransactions) {
             for (let tx of userTransactions.transaction) {
