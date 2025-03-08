@@ -43,7 +43,7 @@ import Login from './components/forms/login'
 import Pre from './app/pre'
 import Loan_section from './components/Admin/Loan_section'
 import ResetPasswordPage from './reset'
-import Sx from '../sx'
+// import Sx from '../sx'
  const App = () => {
 
   const {isLoading,isSuccess}=useGetpostQuery('',{

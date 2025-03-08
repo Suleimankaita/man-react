@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation, Navigate } from 'react-router-dom';
-
+import UseAuth from '../hooks/UseAuth';
 const Layout = ({ allowedroles = [] }) => {
   const location = useLocation();
 
+  const {Roles}=UseAuth()
   // Ensure localStorage data is safely parsed and set a default value
   const storedRoles = localStorage.getItem("roles");
   const parsedRoles = storedRoles ? JSON.parse(storedRoles) : { Roles: [] };
