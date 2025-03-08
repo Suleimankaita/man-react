@@ -22,12 +22,12 @@ const baseQuery = fetchBaseQuery({
 const baseQuerywithreauth = async (arg, api, extraopt) => {
     let result = await baseQuery(arg, api, extraopt);
 
-    const secoundresult = await  baseQuery(
-        { url: "/refresh", method: "GET" },
-        api,
-        extraopt // ✅ No need to spread, `credentials: "include"` is already set globally
-    );
     if (result?.error?.originalStatus === 403 ||result?.error?.originalStatus===401) {
+        const secoundresult = await  baseQuery(
+            { url: "/refresh", method: "GET" },
+            api,
+            extraopt // ✅ No need to spread, `credentials: "include"` is already set globally
+        );
 
         if (secoundresult?.data) {
             await api.dispatch(setlogin(secoundresult?.data));
