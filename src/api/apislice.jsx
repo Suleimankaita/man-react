@@ -45,12 +45,14 @@
 // });
 
 // export default apislices;
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setlogin } from "../features/logslice";
+import { useNavigate } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "https://ict-tr8s.onrender.com",
-    credentials: "include", // ✅ Ensures cookies are sent with every request
+    credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const token = getState()?.auth?.auth;
         if (token) {
@@ -60,48 +62,30 @@ const baseQuery = fetchBaseQuery({
     }
 });
 
-const baseQueryWithReauth = async (arg, api, extraOptions) => {
-    let result = await baseQuery(arg, api, extraOptions);
+const baseQuerywithReauth = async (arg, api, extraopt) => {
+    let result = await baseQuery(arg, api, extraopt);
 
-    // ✅ If access token is expired (403 or 401)
-    if (result?.error?.status === 401 || result?.error?.status === 403) {
-        console.warn("Access token expired. Trying to refresh...");
-
-        // ✅ Try refreshing the access token with credentials included
-        const refreshResult = await baseQuery(
-            { url: "/refresh", method: "GET" }, // ✅ Properly calling refresh
-            api,
-            { ...extraOptions, credentials: "include" } // ✅ Ensure cookies are sent
-        );
+    if (result?.error?.status === 403) {
+        const refreshResult = await baseQuery("/refresh", api, { ...extraopt, credentials: "include" });
 
         if (refreshResult?.data) {
-            console.log("Refresh successful. Updating token...");
-            
-            // ✅ Update Redux store with new access token
-            await api.dispatch(setlogin(refreshResult.data));
-
-            // ✅ Retry the original request with the new token
-            result = await baseQuery(arg, api, extraOptions);
+            await api.dispatch(setlogin(refreshResult?.data));
+            result = await baseQuery(arg, api, extraopt);
         } else {
-            console.error("Refresh token expired or invalid. Logging out...");
-            
             await api.dispatch(setlogin(null));
-
-            // ✅ Redirect only if refresh token is also expired
             if (typeof window !== "undefined") {
-                window.location.href = "/form"; // Redirect after logging out
+                window.location.href = "/form"; // ✅ Redirect user properly
             }
         }
     }
-
     return result;
 };
 
-const apiSlices = createApi({
+const apislices = createApi({
     reducerPath: "api",
-    baseQuery: baseQueryWithReauth,
+    baseQuery: baseQuerywithReauth,
     tagTypes: ["Post", "transaction"],
     endpoints: (builder) => ({})
 });
 
-export default apiSlices;
+export default apislices;
