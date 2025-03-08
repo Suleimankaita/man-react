@@ -64,7 +64,7 @@ import Sx from '../sx'
     <Route path='/wv' element={<FAQ/>}/>
     <Route path='/ms' element={<T/>}/> */}
     {/* <Route path='/ms' element={<AddAmountToUser/>}/>  */}
-    <Route path='/ms' element={<Sx/>}/> 
+    {/* <Route path='/ms' element={<Sx/>}/>  */}
     <Route path='/forget' element={<Forget/>}/>
     <Route path='/reset/:id' element={<ResetPasswordPage/>}/>
     <Route path='/' element={<Child_layout/>}>
