@@ -43,6 +43,7 @@ import Login from './components/forms/login'
 import Pre from './app/pre'
 import Loan_section from './components/Admin/Loan_section'
 import ResetPasswordPage from './reset'
+import Sx from '../sx'
  const App = () => {
 
   const {isLoading,isSuccess}=useGetpostQuery('',{
@@ -63,6 +64,7 @@ import ResetPasswordPage from './reset'
     <Route path='/wv' element={<FAQ/>}/>
     <Route path='/ms' element={<T/>}/> */}
     {/* <Route path='/ms' element={<AddAmountToUser/>}/>  */}
+    <Route path='/ms' element={<Sx/>}/> 
     <Route path='/forget' element={<Forget/>}/>
     <Route path='/reset/:id' element={<ResetPasswordPage/>}/>
     <Route path='/' element={<Child_layout/>}>

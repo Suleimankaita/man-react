@@ -86,7 +86,7 @@ const Userlist = () => {
             </TableRow>
           {/* </TableHead> */}
           <TableBody>
-          {users.slice(0,10).map(user=>(
+          {users.map(user=>(
         
         <TableRow  sx={{
           "&:hover":{
