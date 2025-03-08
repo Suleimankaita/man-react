@@ -52,8 +52,8 @@ import { setlogin } from "../features/logslice";
 import { useNavigate } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://ict-tr8s.onrender.com",
-    // baseUrl: "http://localhost:4000",
+    // baseUrl: "https://ict-tr8s.onrender.com",
+    baseUrl: "http://localhost:4000",
 
     credentials: "include", // Ensures cookies are sent with every request
     prepareHeaders: (headers, { getState }) => {
