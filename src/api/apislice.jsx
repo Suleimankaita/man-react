@@ -47,15 +47,62 @@
 // export default apislices;
 
 
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+// import { setlogin } from "../features/logslice";
+// import { useNavigate } from "react-router-dom";
+
+// const baseQuery = fetchBaseQuery({
+//     baseUrl: "https://ict-tr8s.onrender.com",
+//     // baseUrl: "http://localhost:4000",
+
+//     credentials: "include", // Ensures cookies are sent with every request
+//     prepareHeaders: (headers, { getState }) => {
+//         const token = getState()?.auth?.auth;
+//         if (token) {
+//             headers.set("authorization", `Bearer ${token}`);
+//         }
+//         return headers;
+//     }
+// });
+
+// const baseQueryWithReauth = async (arg, api, extraOptions) => {
+//     let result = await baseQuery(arg, api, extraOptions);
+
+//     // If access token is expired, try refreshing it
+//     if (result?.error?.originalStatus === 403) {
+//         console.warn("Access token expired. Trying to refresh...");
+//         let secondResult = await baseQuery("/refresh", api, extraOptions);
+
+//         // If refresh token is valid, retry the original request
+//         if (secondResult?.data) {
+//             await api.dispatch(setlogin(secondResult?.data));
+//             result = await baseQuery(arg, api, extraOptions);
+//         } else {
+//             console.error("Refresh token expired or invalid. Logging out...");
+//             await api.dispatch(setlogin(null));
+//             window.location.href = "/form"; // Redirecting without useNavigate() in async function
+//         }
+//     }
+
+//     return result;
+// };
+
+// const apiSlices = createApi({
+//     reducerPath: "api",
+//     baseQuery: baseQueryWithReauth,
+//     tagTypes: ["Post", "transaction"],
+//     endpoints: (builder) => ({})
+// });
+
+// export default apiSlices;
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setlogin } from "../features/logslice";
 import { useNavigate } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "https://ict-tr8s.onrender.com",
-    // baseUrl: "http://localhost:4000",
-
-    credentials: "include", // Ensures cookies are sent with every request
+    credentials: "include", // ✅ Ensures cookies are sent with every request
     prepareHeaders: (headers, { getState }) => {
         const token = getState()?.auth?.auth;
         if (token) {
@@ -68,19 +115,30 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (arg, api, extraOptions) => {
     let result = await baseQuery(arg, api, extraOptions);
 
-    // If access token is expired, try refreshing it
-    if (result?.error?.originalStatus === 403) {
+    // ✅ If access token is expired (403 or 401)
+    if (result?.error?.status === 401 || result?.error?.status === 403) {
         console.warn("Access token expired. Trying to refresh...");
-        let secondResult = await baseQuery("/refresh", api, extraOptions);
 
-        // If refresh token is valid, retry the original request
-        if (secondResult?.data) {
-            await api.dispatch(setlogin(secondResult?.data));
+        // ✅ Try refreshing the access token with credentials included
+        const refreshResult = await baseQuery("/refresh", api, { ...extraOptions, credentials: "include" });
+
+        if (refreshResult?.data) {
+            console.log("Refresh successful. Updating token...");
+            
+            // ✅ Update Redux store with new access token
+            await api.dispatch(setlogin(refreshResult.data));
+
+            // ✅ Retry the original request with the new token
             result = await baseQuery(arg, api, extraOptions);
         } else {
             console.error("Refresh token expired or invalid. Logging out...");
+            
             await api.dispatch(setlogin(null));
-            window.location.href = "/form"; // Redirecting without useNavigate() in async function
+
+            // ✅ Redirect only if refresh token is also expired
+            if (typeof window !== "undefined") {
+                window.location.href = "/form"; // Redirect after logging out
+            }
         }
     }
 
