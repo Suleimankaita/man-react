@@ -23,7 +23,11 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
     let result = await baseQuery(arg, api, extraopt);
 
     if (result?.error?.originalStatus === 403) {
-        const secoundresult = await baseQuery("/refresh", api, extraopt);
+        const secoundresult = await  baseQuery(
+            { url: "/refresh", method: "GET" }, 
+            api, 
+            { ...extraopt, credentials: "include" } 
+        );
 
         if (secoundresult?.data) {
             await api.dispatch(setlogin(secoundresult?.data));
