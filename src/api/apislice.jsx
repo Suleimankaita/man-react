@@ -66,9 +66,12 @@ const baseQuery = fetchBaseQuery({
      
      
         
-        if (result?.error?.originalStatus === 403) {
-            const secoundresult = await   baseQuery("/refresh", api, { ...extraopt, credentials: "include" });
-    
+        if (result?.error?.status === 401 || result?.error?.status === 403) {
+            const secoundresult = await baseQuery(
+                { url: "/refresh", method: "GET" }, 
+                api, 
+                { ...extraopt, credentials: "include" } // ✅ Ensure cookies are sent
+            );
             if (secoundresult?.data) {
                 await api.dispatch(setlogin(secoundresult?.data));
                 result = await baseQuery(arg, api, extraopt);
