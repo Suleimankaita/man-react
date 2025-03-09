@@ -16,9 +16,9 @@ const baseQuery = fetchBaseQuery({
         }
         
         // 🔹 Add headers to prevent iOS from caching the request
-        Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
-        // Headers.set("Pragma", "no-cache");
-        Headers.set("Expires", "0");
+        // Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+        // // Headers.set("Pragma", "no-cache");
+        // Headers.set("Expires", "0");
 
         return Headers;
     }
