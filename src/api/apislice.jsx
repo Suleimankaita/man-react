@@ -6,7 +6,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    // baseUrl: "http://localhost:4000",
     baseUrl: "https://ict-tr8s.onrender.com",
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
@@ -17,7 +16,7 @@ const baseQuery = fetchBaseQuery({
         
         // 🔹 Add headers to prevent iOS from caching the request
         Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
-        // // Headers.set("Pragma", "no-cache");
+        Headers.set("Pragma", "no-cache");
         Headers.set("Expires", "0");
 
         return Headers;
