@@ -30,7 +30,7 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
     if (result?.error?.originalStatus === 403 || result?.error?.originalStatus === 401) {
         
         const secoundresult = await baseQuery(
-            { url: "/refresh", method: "GET" },
+             "/refresh",
             api,
             extraopt
         );
@@ -40,7 +40,7 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             await api.dispatch(setlogin(secoundresult?.data));
             
             // 🔹 Invalidate Cache Before Making a New Request
-            api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
+            // api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
 
             result = await baseQuery(arg, api, extraopt);
         } else {
