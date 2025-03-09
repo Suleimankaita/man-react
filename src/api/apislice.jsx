@@ -6,15 +6,20 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    // baseUrl: "http://localhost:4000",
-    // baseUrl: "https://ict.onrender.com",
-    baseUrl: "https://ict-tr8s.onrender.com",
+    baseUrl: "http://localhost:4000",
+    // baseUrl: "https://ict-tr8s.onrender.com",
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
         const token = getState()?.auth?.auth;
         if (token) {
             Headers.set("authorization", `Bearer ${token}`);
         }
+        
+        // 🔹 Add headers to prevent iOS from caching the request
+        Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+        // Headers.set("Pragma", "no-cache");
+        Headers.set("Expires", "0");
+
         return Headers;
     }
 });
@@ -22,24 +27,30 @@ const baseQuery = fetchBaseQuery({
 const baseQuerywithreauth = async (arg, api, extraopt) => {
     let result = await baseQuery(arg, api, extraopt);
 
-    if (result?.error?.originalStatus === 403 ||result?.error?.originalStatus===401) {
-        const secoundresult = await  baseQuery(
+    if (result?.error?.originalStatus === 403 || result?.error?.originalStatus === 401) {
+        
+        const secoundresult = await baseQuery(
             { url: "/refresh", method: "GET" },
             api,
-            extraopt // ✅ No need to spread, `credentials: "include"` is already set globally
+            extraopt
         );
+        alert("refresh")
 
         if (secoundresult?.data) {
             await api.dispatch(setlogin(secoundresult?.data));
+            
+            // 🔹 Invalidate Cache Before Making a New Request
+            api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
+
             result = await baseQuery(arg, api, extraopt);
         } else {
-            const navigate = nav(); 
-            await api.dispatch(setlogin(null)); 
-            navigate("/form"); 
+            await api.dispatch(setlogin(null));
+            window.location.href = "/form";
         }
     }
     return result;
 };
+
 
 const apislices = createApi({
     reducerPath: "api",
