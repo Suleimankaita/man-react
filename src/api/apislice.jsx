@@ -44,8 +44,11 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
 
             result = await baseQuery(arg, api, extraopt);
         } else {
-            await api.dispatch(setlogin(null));
-            window.location.href = "/form";
+            if(secoundresult?.error?.originalStatus===401){
+
+                await api.dispatch(setlogin(null));
+                window.location.href = "/form";
+            }
         }
     }
     return result;
