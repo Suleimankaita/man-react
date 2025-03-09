@@ -40,7 +40,7 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             await api.dispatch(setlogin(secoundresult?.data));
             
             // 🔹 Invalidate Cache Before Making a New Request
-            api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
+            // api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
 
             result = await baseQuery(arg, api, extraopt);
         } else {
