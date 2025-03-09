@@ -1,18 +1,16 @@
 import { auths } from '../features/logslice'
 import { useSelector } from 'react-redux' 
-import {jwtDecode} from 'jwt-decode'
+import jwtDecode from 'jwt-decode' // Corrected import statement
 import { getid } from '../features/logslice' 
 import { useDispatch } from 'react-redux'
 import { io } from 'socket.io-client'
 
 const UseAuth = () => {
   
-
     const save=(saves)=>{
         localStorage.setItem("roles",JSON.stringify(saves))
     }
     
-
     const token=useSelector(auths)
     let Isadmin=false;
     let User=false;
@@ -23,29 +21,18 @@ const UseAuth = () => {
         
         const {username,Roles,id, account,update}=docode.UserInfo;
         
-           
-
-        
         Isadmin=Roles.includes("Admin")
-        
         User=Roles.includes("User")
 
         if(Isadmin){
-                
             save({Isadmin,Roles})
-
-        }
-        
-        else if(User){
+        } else if(User){
             save({User,Roles})
-
         }
        
         return {Isadmin,User,id,username,Roles,account,update}
-
     }
-    return {username:"",Roles:[],status,id:""}
-
+    return {username:"",Roles:[],status:"",id:""}
 }
 
 export default UseAuth
