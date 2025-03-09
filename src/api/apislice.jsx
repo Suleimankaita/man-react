@@ -1,8 +1,5 @@
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 import { setlogin } from "../features/logslice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { setdetails } from "../features/setcredentials";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
@@ -57,7 +54,6 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
     }
     return result;
 };
-
 
 const apislices = createApi({
     reducerPath: "api",
