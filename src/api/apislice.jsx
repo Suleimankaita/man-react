@@ -41,6 +41,11 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             // 🔹 Invalidate Cache Before Making a New Request
             // api.dispatch(apislices.util.invalidateTags(["Post", "transaction"]));
 
+            // 🔹 Add headers to prevent iOS from caching the request
+            api.extraOptions.headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+            api.extraOptions.headers.set("Pragma", "no-cache");
+            api.extraOptions.headers.set("Expires", "0");
+
             result = await baseQuery(arg, api, extraopt);
         } else {
             if(secoundresult?.error?.originalStatus===401){
