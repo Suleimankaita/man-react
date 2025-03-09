@@ -52,6 +52,14 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             }
         }
     }
+    
+    // 🔹 Add headers to prevent iOS from caching the request
+    if (result?.error) {
+        api.extraOptions.headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+        api.extraOptions.headers.set("Pragma", "no-cache");
+        api.extraOptions.headers.set("Expires", "0");
+    }
+
     return result;
 };
 
