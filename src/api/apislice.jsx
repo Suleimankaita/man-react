@@ -16,9 +16,9 @@ const baseQuery = fetchBaseQuery({
         }
         
         // 🔹 Add headers to prevent iOS from caching the request
-        // Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+        Headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
         // // Headers.set("Pragma", "no-cache");
-        // Headers.set("Expires", "0");
+        Headers.set("Expires", "0");
 
         return Headers;
     }
@@ -30,7 +30,7 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
     if (result?.error?.originalStatus === 403 || result?.error?.originalStatus === 401) {
         
         const secoundresult = await baseQuery(
-            { url: "/refresh", method: "GET" },
+        "/refresh",
             api,
             extraopt
         );
