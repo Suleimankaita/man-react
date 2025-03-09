@@ -1,5 +1,8 @@
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 import { setlogin } from "../features/logslice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+// import { setdetails } from "../features/setcredentials";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
@@ -52,16 +55,9 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             }
         }
     }
-    
-    // 🔹 Add headers to prevent iOS from caching the request
-    if (result?.error) {
-        api.extraOptions.headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
-        api.extraOptions.headers.set("Pragma", "no-cache");
-        api.extraOptions.headers.set("Expires", "0");
-    }
-
     return result;
 };
+
 
 const apislices = createApi({
     reducerPath: "api",

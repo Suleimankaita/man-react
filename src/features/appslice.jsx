@@ -76,12 +76,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({values})=>({
                 url:"/registration",
                 method:"POST",
-                body:{...values},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{...values}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -91,12 +86,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({form,id})=>({
                 url:`/update/${id}`,
                 method:"PATCH",
-                body:form,
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:form
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -106,12 +96,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({password,id})=>({
                 url:`/reset/${id}`,
                 method:"POST",
-                body:{password},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{password}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -121,12 +106,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({id,amount,username})=>({
                 url:`/Tran/${id}`,
                 method:"PUT",
-                body:{amount,username},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{amount,username}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -136,12 +116,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({email})=>({
                 url:`/forget`,
                 method:"POST",
-                body:{email},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{email}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -151,12 +126,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({id})=>({
                 url:`/Tran/${id}`,
                 method:"PATCH",
-                body:{id},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{id}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -166,12 +136,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({id,account_no, username,amount,billname})=>({
                 url:`/paybill`,
                 method:"PUT",
-                body:{id,account_no, username,amount,billname},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{id,account_no, username,amount,billname}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -181,12 +146,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({username,account_no,amount,id})=>({
                 url:`/Loan`,
                 method:"PUT",
-                body:{username,account_no,amount,id},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{username,account_no,amount,id}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
@@ -196,12 +156,7 @@ export const extendedapi=apislices.injectEndpoints({
             query:({id,addamount,username,id1})=>({
                 url:`/Tran2/${id}`,
                 method:"PUT",
-                body:{addamount,username,id1},
-                headers: {
-                    "Cache-Control": "no-cache, no-store, must-revalidate",
-                    "Pragma": "no-cache",
-                    "Expires": "0"
-                }
+                body:{addamount,username,id1}
             }),
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:"Lists"}]
