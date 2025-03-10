@@ -34,7 +34,7 @@ content=<Outlet/>
             content= <div className="loader_cen"><div className='loader'></div></div>;
         } else if(isError){
             // content=<Link to='/form'>please Loging again</Link>
-            content=<Link to='/form'>{error?.data}</Link>
+            content=<Link to='/form'>{error?.data?.message}</Link>
 
         }
     

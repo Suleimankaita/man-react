@@ -658,15 +658,15 @@ const airtime = () => {
                 });
         }
             man()
-        }
-  // init
-                return () => {
-                  isMounted.current=false
-                  socket.current.off("message");
-                  socket.current.off("transactionUpdate");
-                  socket.current.off("transactionUpdates");
-                  socket.current.off("notify");
-                };
+            // init
+            return () => {
+              isMounted.current=false
+              socket.current.off("message");
+              socket.current.off("transactionUpdate");
+              socket.current.off("transactionUpdates");
+              socket.current.off("notify");
+            };
+          }
         }, [idss]);
   useEffect(() => {
     if (!transactions.length) return;

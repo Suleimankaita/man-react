@@ -91,8 +91,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
         };
     
         man();
-      }
-    
+        
         return () => {
           isMounted.current = false; // ✅ FIXED: Correct cleanup
           if (socket.current) {
@@ -101,6 +100,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
             socket.current.off("transactionUpdates");
             socket.current.off("notify");
           }
+         }
         };
       }, [id, data]);
     
