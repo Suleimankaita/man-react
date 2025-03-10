@@ -29,11 +29,14 @@ const Persist = () => {
     let content;
 
     if(isSuccess){
-content=<Outlet/>
+        content=<Outlet/>
         } else if(isLoading){
             content= <div className="loader_cen"><div className='loader'></div></div>;
         } else if(isError){
-            // content=<Link to='/form'>please Loging again</Link>
+            content=<Link to='/form'>please Loging again</Link>
+            
+        }
+        else if(error){
             content=<Link to='/form'>{error?.data?.message}</Link>
 
         }
