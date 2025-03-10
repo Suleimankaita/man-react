@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import { useRefreshMutation } from '../api/Logoutslice'
 import { setlogin } from '../features/logslice'
 import { useDispatch } from 'react-redux'
@@ -8,8 +8,9 @@ import { Link, Outlet } from 'react-router-dom'
 const Persist = () => {
     const dispatch = useDispatch()
     const [refresh, { isLoading, isSuccess, isError, data ,error}] = useRefreshMutation()
-
+    const eff=useRef(false)
     useEffect(() => {
+        if(eff.current===true || process.env.NODE_ENV!=='development'){
         const refreshSession = async () => {
             console.log("refresh")
 
@@ -20,8 +21,10 @@ const Persist = () => {
             }
         }
 
-        refreshSession()
-    }, [dispatch, refresh])
+        refreshSession()}
+        return()=>{
+            eff.current=true}
+    }, [])
 
     let content;
 
@@ -30,10 +33,8 @@ content=<Outlet/>
         } else if(isLoading){
             content= <div className="loader_cen"><div className='loader'></div></div>;
         } else if(isError){
-            content=<>
-            {/* <p>error {error}</p> */}
-            <Link to='/form'>please Loging again</Link>
-            </>
+            content=<Link to='/form'>please Loging again</Link>
+
         }
     
     return content
