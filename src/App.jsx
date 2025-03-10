@@ -101,10 +101,8 @@ import Persist from './hooks/persist'
           <Route path='/Setting/Transaction History' element={<Notification/>}/>
           <Route path='/Airtime' element={<Airtime/>}/>
           <Route path='/History/:id' element={<History_id/>}/>
-        </Route>
       </Route>
       <Route element={<Layout allowedroles={["Admin"]}/>}>
-        <Route element={<Persist/>}>
           <Route path='/m' element={<DashBord/>}/>
           <Route path='/Add_fund' element={<AddAmountToUser/>}/> 
           <Route path='/Overview' element={<Overview/>}/>

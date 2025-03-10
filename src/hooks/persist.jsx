@@ -15,7 +15,6 @@ const Persist = () => {
 
             try {
                 const result = await refresh().unwrap()
-                dispatch(setlogin(result))
             } catch (error) {
                 console.error("Failed to refresh session: ", error.message)
             }

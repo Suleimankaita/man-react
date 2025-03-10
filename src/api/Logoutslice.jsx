@@ -44,8 +44,10 @@ import { logout } from "../features/logslice"
                 url:"/refresh",
                 method:"GET",
             }),
-            invalidatesTags:(result,error,arg)=>{
-                return [{type:"Post",id:"LIST"}]
+          async onQueryStarted (args,{queryFulfilled,dispatch}){
+                const data= await queryFulfilled;
+                console.log(data.data);
+                dispatch(setlogin(data.data));
             }
         })
 
