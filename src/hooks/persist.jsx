@@ -38,7 +38,7 @@ const Persist = () => {
         }
         else if(error){
             content=<Link to='/form'>{error?.data?.message}</Link>
-
+                    
         }
     
     return content

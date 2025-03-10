@@ -607,9 +607,9 @@ const airtime = () => {
 
   const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
-  let isMounted=useRef(true)
+  let isMounted=true
      useEffect(() => {
-        if(isMounted.current===true){
+        if(isMounted){
   
         const man=async()=>{
   
@@ -658,15 +658,15 @@ const airtime = () => {
                 });
         }
             man()
-            // init
-            return () => {
-              isMounted.current=false
-              socket.current.off("message");
-              socket.current.off("transactionUpdate");
-              socket.current.off("transactionUpdates");
-              socket.current.off("notify");
-            };
-          }
+        }
+  // init
+                return () => {
+                  isMounted=false
+                  socket.current.off("message");
+                  socket.current.off("transactionUpdate");
+                  socket.current.off("transactionUpdates");
+                  socket.current.off("notify");
+                };
         }, [idss]);
   useEffect(() => {
     if (!transactions.length) return;
