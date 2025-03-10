@@ -607,9 +607,9 @@ const airtime = () => {
 
   const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
-  let isMounted=true
+  let isMounted=useRef(true)
      useEffect(() => {
-        if(isMounted){
+        if(isMounted.current===true){
   
         const man=async()=>{
   
@@ -661,7 +661,7 @@ const airtime = () => {
         }
   // init
                 return () => {
-                  isMounted=false
+                  isMounted.current=false
                   socket.current.off("message");
                   socket.current.off("transactionUpdate");
                   socket.current.off("transactionUpdates");

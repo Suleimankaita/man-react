@@ -27,13 +27,12 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       //  const [find,setfind]=useState([])
       const [transactions,setTransactions]=useState([])
       const dispatch=useDispatch()
-      let isMounted = true;
-      // const isMounted =useRef( true);
+      // let isMounted = true;
+      const isMounted =useRef( true);
       const noti = useRef(new Audio(a)); 
       
       useEffect(() => {
-      if(!isMounted) return;
-        if(isMounted){
+        if(isMounted.current===true){
 
         const man = async () => {
           if (!socket.current) {
@@ -95,7 +94,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       }
     
         return () => {
-          isMounted = false; // ✅ FIXED: Correct cleanup
+          isMounted.current = false; // ✅ FIXED: Correct cleanup
           if (socket.current) {
             socket.current.off("message");
             socket.current.off("transactionUpdate");
