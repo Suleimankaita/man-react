@@ -36,10 +36,7 @@ const Persist = () => {
             content=<Link to='/form'>please Loging again</Link>
             
         }
-        else if(error){
-            content=<Link to='/form'>{error?.data?.message}</Link>
-                    
-        }
+      
     
     return content
 }
