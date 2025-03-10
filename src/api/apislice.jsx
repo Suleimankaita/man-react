@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { useNavigate as nav } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://ict-tr8s.onrender.com",
+    // baseUrl: "https://ict-tr8s.onrender.com",
+    baseUrl: "https://booking-app-backend-7ih9.onrender.com",
     // baseUrl: "http://localhost:4000",
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
