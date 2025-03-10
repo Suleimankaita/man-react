@@ -7,7 +7,7 @@ import { Link, Outlet } from 'react-router-dom'
 
 const Persist = () => {
     const dispatch = useDispatch()
-    const [refresh, { isLoading, isSuccess, isError, data }] = useRefreshMutation()
+    const [refresh, { isLoading, isSuccess, isError, data ,error}] = useRefreshMutation()
 
     useEffect(() => {
         const refreshSession = async () => {
@@ -30,7 +30,10 @@ content=<Outlet/>
         } else if(isLoading){
             content= <div className="loader_cen"><div className='loader'></div></div>;
         } else if(isError){
-            content=<Link to='/form'>please Loging again</Link>
+            content=<>
+            {alert("please Loging again" ,error.data.message)}
+            <Link to='/form'>please Loging again</Link>
+            </>
         }
     
     return content
