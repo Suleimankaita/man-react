@@ -38,11 +38,20 @@ import { logout } from "../features/logslice"
             invalidatesTags:(result,error,arg)=>{
                 return [{type:"Post",id:arg.id}]
             }
+        }),
+        refresh:builder.mutation({
+            query:()=>({
+                url:"/refresh",
+                method:"GET",
+            }),
+            invalidatesTags:(result,error,arg)=>{
+                return [{type:"Post",id:"LIST"}]
+            }
         })
 
 
     }))
  })
- export const {useLogMutation,useLogoutMutation,useDeleteMutation}=log
+ export const {useLogMutation,useRefreshMutation,useLogoutMutation,useDeleteMutation}=log
 
  export default log

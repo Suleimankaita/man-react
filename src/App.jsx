@@ -44,14 +44,13 @@ import Pre from './app/pre'
 import Loan_section from './components/Admin/Loan_section'
 import ResetPasswordPage from './reset'
 // import Sx from '../sx'
+import Persist from './hooks/persist'
  const App = () => {
 
   const {isLoading,isSuccess}=useGetpostQuery('',{
     pollingInterval:1000,
     refetchOnFocus:true
   })
-
-
 
   const {Isadmin,User}=UseAuth()
   return (
@@ -68,64 +67,62 @@ import ResetPasswordPage from './reset'
     <Route path='/forget' element={<Forget/>}/>
     <Route path='/reset/:id' element={<ResetPasswordPage/>}/>
     <Route path='/' element={<Child_layout/>}>
-    <Route  element={<Layout allowedroles={["Admin",'User']}/>}>
-    {/* <Route path='/m' element={<DashBord/>}/> */}
-    <Route index element={<Role/>}/>
-    {/* {
-      isLoading?<div className="loader_cen"> <div className='loader'></div></div>:
-      // isSuccess?
-      Isadmin?
-    <Route index element={<DashBord/>}/>:User?<Route index element={<User_dashbord/>}/> :null   }  */}
-
-    </Route>
-    <Route  element={<Layout allowedroles={['User']}/>}>
-    <Route path='/s' element={<UserBill/>}/>
-    
-    <Route path='/Card' element={<Card/>}/>
-    <Route path='/Loan' element={<Loan/>}/>
-    <Route path='/History' element={<History/>}/>
-    <Route path='/bills' element={<Bill/>}/>
-    <Route path='/Data' element={<Data/>}/>
-    <Route path='/notification' element={<Notification/>}/>
-    <Route path='/Transfer' element={<Transfer/>}/>
-    <Route path='/More/Transfer' element={<Transfer/>}/>
-    <Route path='/More/History' element={<History/>}/>
-    <Route path='/widrawel' element={<Widrawel/>}/>
-    <Route path='/TV' element={<TV/>}/>
-    <Route path='/Loan' element={<LoanSection/>}/>
-    <Route path='/More' element={<More/>}/>
-    <Route path='/Setting' element={<Setting/>}/>
-    <Route path='/Setting/Profile' element={<Profile/>}/>
-    <Route path='/Setting/Card' element={<Card/>}/>
-    <Route path='/Setting/History' element={<History/>}/>
-    <Route path='/Setting/notifications' element={<Notification/>}/>
-    <Route path='/Setting/Contact us' element={<Contact/>}/>
-    <Route path='/Setting/FAQ' element={<FAQ/>}/>
-    <Route path='/Setting/Transaction History' element={<Notification/>}/>
-    <Route path='/Airtime' element={<Airtime/>}/>
-    <Route path='/History/:id' element={<History_id/>}/>
-    </Route>
-    
-    <Route  element={<Layout allowedroles={["Admin"]}/>}>
-    <Route path='/m' element={<DashBord/>}/>
-    <Route path='/Add_fund' element={<AddAmountToUser/>}/> 
-    
-    <Route path='/Overview' element={<Overview/>}/>
-    <Route path='/Userlist' element={<Userlist/>}/>
-    <Route path='/paybill' element={<Bills/>}/>
-    <Route path='/loan_request' element={<Loan_section/>}/>
-    <Route path='/Userlist/Usersection/:id' element={<Usersection/>}/>
-    <Route path='/Usersection/:id' element={<Usersection/>}/>
-    <Route path='/paybill/Userlist/Usersection/:id' element={<Usersection/>}/>
-    <Route path='/Admin_Settings/Userlist' element={<Userlist/>}/>
-    <Route path='/Admin_Settings' element={<Setting/>}/>
-    <Route path='/Admin_Settings/Profile' element={<Profile/>}/>
-    <Route path='/Admin_Settings/History' element={<History/>}/>
-    <Route path='/Admin_Settings/Contact us' element={<Contact/>}/>
-    <Route path='/Admin_Settings/FAQ' element={<FAQ/>}/>
-
-    <Route path='/Admin_Settings/notifications' element={<Notification/>}/>
-    </Route>
+      <Route element={<Layout allowedroles={["Admin",'User']}/>}>
+        <Route index element={<Role/>}/>
+        {/* {
+          isLoading?<div className="loader_cen"> <div className='loader'></div></div>:
+          // isSuccess?
+          Isadmin?
+        <Route index element={<DashBord/>}/>:User?<Route index element={<User_dashbord/>}/> :null   }  */}
+      </Route>
+      <Route element={<Persist/>}>
+        <Route element={<Layout allowedroles={['User']}/>}>
+          <Route path='/s' element={<UserBill/>}/>
+          <Route path='/Card' element={<Card/>}/>
+          <Route path='/Loan' element={<Loan/>}/>
+          <Route path='/History' element={<History/>}/>
+          <Route path='/bills' element={<Bill/>}/>
+          <Route path='/Data' element={<Data/>}/>
+          <Route path='/notification' element={<Notification/>}/>
+          <Route path='/Transfer' element={<Transfer/>}/>
+          <Route path='/More/Transfer' element={<Transfer/>}/>
+          <Route path='/More/History' element={<History/>}/>
+          <Route path='/widrawel' element={<Widrawel/>}/>
+          <Route path='/TV' element={<TV/>}/>
+          <Route path='/Loan' element={<LoanSection/>}/>
+          <Route path='/More' element={<More/>}/>
+          <Route path='/Setting' element={<Setting/>}/>
+          <Route path='/Setting/Profile' element={<Profile/>}/>
+          <Route path='/Setting/Card' element={<Card/>}/>
+          <Route path='/Setting/History' element={<History/>}/>
+          <Route path='/Setting/notifications' element={<Notification/>}/>
+          <Route path='/Setting/Contact us' element={<Contact/>}/>
+          <Route path='/Setting/FAQ' element={<FAQ/>}/>
+          <Route path='/Setting/Transaction History' element={<Notification/>}/>
+          <Route path='/Airtime' element={<Airtime/>}/>
+          <Route path='/History/:id' element={<History_id/>}/>
+        </Route>
+      </Route>
+      <Route element={<Layout allowedroles={["Admin"]}/>}>
+        <Route element={<Persist/>}>
+          <Route path='/m' element={<DashBord/>}/>
+          <Route path='/Add_fund' element={<AddAmountToUser/>}/> 
+          <Route path='/Overview' element={<Overview/>}/>
+          <Route path='/Userlist' element={<Userlist/>}/>
+          <Route path='/paybill' element={<Bills/>}/>
+          <Route path='/loan_request' element={<Loan_section/>}/>
+          <Route path='/Userlist/Usersection/:id' element={<Usersection/>}/>
+          <Route path='/Usersection/:id' element={<Usersection/>}/>
+          <Route path='/paybill/Userlist/Usersection/:id' element={<Usersection/>}/>
+          <Route path='/Admin_Settings/Userlist' element={<Userlist/>}/>
+          <Route path='/Admin_Settings' element={<Setting/>}/>
+          <Route path='/Admin_Settings/Profile' element={<Profile/>}/>
+          <Route path='/Admin_Settings/History' element={<History/>}/>
+          <Route path='/Admin_Settings/Contact us' element={<Contact/>}/>
+          <Route path='/Admin_Settings/FAQ' element={<FAQ/>}/>
+          <Route path='/Admin_Settings/notifications' element={<Notification/>}/>
+        </Route>
+      </Route>
     </Route>
   </Routes>
   )
