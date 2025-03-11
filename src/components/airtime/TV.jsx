@@ -274,6 +274,8 @@ const socket = useRef(null);
        const userTransactions = transactions.find(t => t._id === idss);
        if (userTransactions) {
          for (let tx of userTransactions.transaction) {
+          localStorage.setItem('amount',tx.amount)
+
            disp(acct(tx.amount));
          }
        }

@@ -678,6 +678,8 @@ const airtime = () => {
       if (userTransactions) {
         for (let tx of userTransactions.transaction) {
           disp(acct(tx.amount));
+          localStorage.setItem('amount',tx.amount)
+
         }
       }
     };

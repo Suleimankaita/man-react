@@ -114,6 +114,8 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
       if (userTransactions&& transactions.length) {
         console.log("Processing transactions:")
         userTransactions.transaction.forEach((tx) => {
+
+          localStorage.setItem('amount',tx.amount)
           arr.push(tx.amount)
           dispatch(acct(tx.amount))
           if(arr.length){
