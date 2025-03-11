@@ -608,7 +608,9 @@ const airtime = () => {
   const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
   let isMounted=false
+  
   useEffect(() => {
+
         if(!isMounted){
   
         const man=async()=>{
