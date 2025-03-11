@@ -203,7 +203,6 @@ const TV = () => {
 },[])
   const audio=useRef(null)
 
-  const arr=[]
 
 const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
@@ -269,6 +268,8 @@ const socket = useRef(null);
                    socket.current.off("notify");
                  };
          }, [idss]);
+
+         const arrs=[]
    useEffect(() => {
      if (!transactions.length) return;
  
@@ -279,10 +280,10 @@ const socket = useRef(null);
 
            disp(acct(tx.amount));
 
-           arr.push(tx.amount)
-          if(arr.length){
-            console.log(arr)
-            localStorage.setItem('amount',arr)
+           arrs.push(tx.amount)
+          if(arrs.length){
+            console.log(arrs)
+            localStorage.setItem('amount',arrs)
             }
          }
        }
