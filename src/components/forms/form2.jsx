@@ -43,7 +43,7 @@ const form = ({isLoading,Login,isSuccess,error,isError}) => {
   useEffect(()=>{
 
     if(isError){
-      toast(error.data.message)
+      toast(error?.data?.message)
     }
   },[isError])
     

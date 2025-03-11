@@ -285,9 +285,9 @@ const socket = useRef(null);
   const audio=useRef(null)
 
   const [transactions, setTransactions] = useState([]);
-  let isMounted=true
+  let isMounted=false
      useEffect(() => {
-        if(isMounted){
+        if(!isMounted){
   
         const man=async()=>{
   
@@ -339,7 +339,7 @@ const socket = useRef(null);
         }
   
                 return () => {
-                  isMounted=false
+                  isMounted=true
                   socket.current.off("message");
                   socket.current.off("transactionUpdate");
                   socket.current.off("transactionUpdates");

@@ -75,7 +75,7 @@ import Persist from './hooks/persist'
           Isadmin?
         <Route index element={<DashBord/>}/>:User?<Route index element={<User_dashbord/>}/> :null   }  */}
       </Route>
-      <Route element={<Persist/>}>
+      {/* <Route element={<Persist/>}> */}
         <Route element={<Layout allowedroles={['User']}/>}>
           <Route path='/s' element={<UserBill/>}/>
           <Route path='/Card' element={<Card/>}/>
@@ -119,7 +119,7 @@ import Persist from './hooks/persist'
           <Route path='/Admin_Settings/Contact us' element={<Contact/>}/>
           <Route path='/Admin_Settings/FAQ' element={<FAQ/>}/>
           <Route path='/Admin_Settings/notifications' element={<Notification/>}/>
-        </Route>
+        {/* </Route> */}
       </Route>
     </Route>
   </Routes>

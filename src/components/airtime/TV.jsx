@@ -206,16 +206,15 @@ const TV = () => {
 const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
 
- let isMounted=true
+ let isMounted=false
       useEffect(() => {
-        if(!isMounted) return;
-         if(isMounted){
+         if(!isMounted){
    
          const man=async()=>{
    
            if (!socket.current&&!audio.current) {
               audio.current=new Audio(a)
-                   socket.current = io("https://ict-tr8s.onrender.com");
+                   socket.current = io("localhost:4000");
                  }
              
                  const sock = socket.current;
@@ -261,7 +260,7 @@ const socket = useRef(null);
          }
    
                  return () => {
-                   isMounted=false
+                   isMounted=true
                    socket.current.off("message");
                    socket.current.off("transactionUpdate");
                    socket.current.off("transactionUpdates");

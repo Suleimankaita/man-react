@@ -27,17 +27,16 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       //  const [find,setfind]=useState([])
       const [transactions,setTransactions]=useState([])
       const dispatch=useDispatch()
-      let isMounted = true;
       // const isMounted =useRef( true);
       const noti = useRef(new Audio(a)); 
+      let isMounted = false;
       
       useEffect(() => {
-      if(!isMounted) return;
-        if(isMounted){
+        if(!isMounted){
 
         const man = async () => {
           if (!socket.current) {
-            socket.current = io("https://ict-tr8s.onrender.com", {
+            socket.current = io("localhost:4000", {
               transports: ["websocket"],
               secure: true,
             });
@@ -95,7 +94,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
       }
     
         return () => {
-          isMounted = false; // ✅ FIXED: Correct cleanup
+          isMounted = true; // ✅ FIXED: Correct cleanup
           if (socket.current) {
             socket.current.off("message");
             socket.current.off("transactionUpdate");
