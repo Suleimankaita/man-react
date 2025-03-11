@@ -615,7 +615,7 @@ const airtime = () => {
   
           if (!socket.current&&!audio.current) {
              audio.current=new Audio(a)
-                  socket.current = io("localhost:4000");
+                  socket.current = io("http://localhost:4000");
                 }
             
                 const sock = socket.current;

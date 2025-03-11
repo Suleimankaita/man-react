@@ -36,7 +36,7 @@ const User_das = ({account,secound,setsecound, cons, con1, content, setcons, ope
 
         const man = async () => {
           if (!socket.current) {
-            socket.current = io("localhost:4000", {
+            socket.current = io("http://localhost:4000", {
               transports: ["websocket"],
               secure: true,
             });
