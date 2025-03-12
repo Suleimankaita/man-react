@@ -1135,7 +1135,9 @@ body{
     height: 75vh;
     border-radius: 10px;
     /* transform: translate(-1%,-149%); */
-    top: 150px;
+    /* top: 150px; */
+    top: 130px;
+
     left: 15px;
     display: flex;
     flex-flow: column;
@@ -1150,10 +1152,12 @@ body{
   .credit_alert22{
     width: 90%;
     position: fixed;
-    height: 70vh;
+    /* height: 80vh; */
     border-radius: 10px;
     /* transform: translate(-1%,-149%); */
-    top: 150px;
+    /* top: 150px; */
+    top: 120px;
+    
     left: 20px;
     display: flex;
     flex-flow: column;
@@ -1170,7 +1174,7 @@ body{
     position: fixed;
     /* height: 60vh; */
     border-radius: 10px;
-    top: 150px;
+    top: 120px;
     font-size: 10px;
     left: 15px;
     /* transform: translate(-1%,-140%); */
@@ -1338,7 +1342,7 @@ body{
     display: flex;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     justify-content: center;
   }
   .close{

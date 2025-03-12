@@ -24,114 +24,154 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
   const [transactions, setTransactions] = useState([])
   const dispatch = useDispatch()
   const noti = useRef(new Audio(a))
-  const SOCKET_URL = "http://localhost:4000"
-  // const isMounted = useRef(true)
+  const SOCKET_URL = "http://localhost:4000";
+  const [alerts,setalert]=useState()
   let isMounted = true
 
   let arr=[]
 
   useEffect(() => {
-    
-          if (!socket.current) {
-            socket.current = io(SOCKET_URL, {
-              transports: ["websocket"],
-              secure: true,
-            })
-          }
-    if (isMounted) {
-      console.log("mounting")
+    if (!socket.current && !audio.current) {
+      audio.current = new Audio(a);
+      socket.current = io(SOCKET_URL, {
+        transports: ["websocket"],
+        secure: true,
+      });
+    }
 
-      const sock = socket.current
+    if (isMounted) {
+      console.log("mounting");
+
+      const sock = socket.current;
 
       sock.off("message").on("message", (data) => {
-        console.log("Received message:", data)
-        setTransactions(data)
-      })
+        console.log("Received message:", data);
+        setTransactions(data);
+      });
 
       sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
-        console.log("Received transactionUpdates:", datas)
-        toast(datas)
-      })
+        console.log("Received transactionUpdates:", datas);
+        toast(datas);
+      });
 
       sock.off("notify").on("notify", (datas) => {
-        console.log("Received notify:", datas)
+        console.log("Received notify:", datas);
         if (datas.id1 === id) {
           document.addEventListener(
             "click",
             () => {
-              noti.current.play().catch((err) => console.log("Sound error:", err))
+              noti.current.play().catch((err) => console.log("Sound error:", err));
             },
             { once: true }
-          )
+          );
+          
+          // setTransactions((prev) => [...prev, datas.amount]);
 
-          let message = `${datas.name} \n NGN${datas.amount} ${datas.time}`
-          toast(message)
+          let message = `${datas.name} \n NGN${datas.amount} ${datas.time}`;
+          toast(message);
 
           if ("Notification" in window) {
             if (Notification.permission === "granted") {
-              new Notification("New Notification", { body: datas.amount })
+              new Notification("New Notification", { body: datas.amount });
             } else if (Notification.permission !== "denied") {
               Notification.requestPermission().then((permission) => {
                 if (permission === "granted") {
-                  new Notification("New Notification", { body: datas.amount })
+                  new Notification("New Notification", { body: datas.amount });
                 }
-              })
+              });
             }
           }
         }
-      })
+      });
 
       sock.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
-        console.log("Received transactionUpdate:", newTransaction)
+        console.log("Received transactionUpdate:", newTransaction);
         setTransactions((prev) => {
-          const exists = prev.some((tx) => tx._id === newTransaction._id)
-          return exists ? prev : [newTransaction, ...prev]
-        })
-      })
+          const exists = prev.some((tx) => tx._id === newTransaction._id);
+          return exists ? prev : [newTransaction, ...prev];
+        });
+      });
     }
-
-    return() => {
-      isMounted= false
-      console.log("unmounting")
-
-      if (socket.current) {
-        socket.current.off("message")
-        socket.current.off("transactionUpdate")
-        socket.current.off("transactionUpdates")
-        socket.current.off("notify")
-      }
-      
-    }
-  }, [id,])
-
-  useEffect(() => {
-    if(isMounted){
-
-    if (!transactions.length) return
-
-    const processTransactions = async () => {
-      const userTransactions = transactions.find((t) => t._id === id)
-      console.log("Processing transactions:", userTransactions)
-
-      if (userTransactions) {
-        console.log("Processing transactions:")
-        userTransactions.transaction.forEach((tx) => {
-          dispatch(acct(tx.amount))
-
-        })
-      }
-    }
-
-    processTransactions()
-  }
-
 
     return () => {
-      console.log("Cleaning up transactions effect")
-      isMounted=false
-      // Add any necessary cleanup code here
+      isMounted = false;
+      console.log("unmounting");
+
+      if (socket.current) {
+        socket.current.off("message");
+        socket.current.off("transactionUpdate");
+        socket.current.off("transactionUpdates");
+        socket.current.off("notify");
+      }
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (!transactions.length) return;
+
+    const processTransactions = async () => {
+      const userTransactions = transactions.find((t) => t._id === id);
+      console.log("Processing transactions:", userTransactions);
+
+      if (userTransactions || transactions.length) {
+        console.log("Processing transactions:");
+        userTransactions.transaction.forEach((tx) => {
+          dispatch((dispatch, getState) => {
+            const existingTransactions = getState().auth.account;
+            const exists = existingTransactions.some((existingTx) => existingTx._id === tx._id);
+            if (!exists) {
+              dispatch(acct(tx.amount));
+            }
+          });
+        });
+      }
+    };
+
+    processTransactions();
+
+    return () => {
+      console.log("Cleaning up transactions effect");
+      isMounted = false;
+    };
+  }, [transactions, id, dispatch]);
+
+
+  const [arrs,setarrs]=useState([]);
+  let moute=true;
+
+  useEffect(()=>{
+
+    if(moute){
+
+      const mans=async()=>{
+
+        const {ids,entities}=data;
+
+          const all=entities[id].transaction
+          const ms=all.map(res=>{
+            return setarrs(prev=>[...prev,res.amount])
+          })
+
+          if(arrs.length){
+            console.log(arrs)
+          }
+
+      }
+      mans()
+
     }
-  }, [transactions, id, dispatch])
+    return()=>{
+      moute=false;
+    }
+
+  },[data])
+
+useEffect(()=>{
+  if(arrs.length){
+    console.log(arrs)
+}
+},[arrs])
+
 
   return (
     <section className="main">

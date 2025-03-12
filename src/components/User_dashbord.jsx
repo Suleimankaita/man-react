@@ -26,6 +26,8 @@ const User_dashbord = () => {
     })
     const { amountess} =Usebuy()
 
+    
+
     const [open,setopen]=useState(true)
 
     const show=()=>{
@@ -36,6 +38,47 @@ const User_dashbord = () => {
      const socketRef = useRef(null);
     
     const { id: idss,username,account} = UseAuth();
+
+
+    const [arrs,setarrs]=useState([]);
+      let moute=true;
+    
+      useEffect(()=>{
+    
+        if(moute){
+    
+          const mans=async()=>{
+    
+            const {entities}=data;
+    
+              const all=entities[idss].transaction;
+
+              const ms=all.map(res=>{
+              
+                return setarrs(prev=>[...prev,res.amount])
+              
+            })
+    
+               if(arrs.length){
+                console.log(arrs)
+            }
+    
+          }
+          mans()
+    
+        }
+        return()=>{
+          moute=false;
+        }
+    
+      },[data])
+    
+    useEffect(()=>{
+      if(arrs.length){
+        console.log(arrs)
+    }
+    },[arrs])
+    
     
     const [transactions, setTransactions] = useState([]);
     
@@ -135,7 +178,7 @@ const User_dashbord = () => {
   
     let contents;
     const con1=(open?<FaEye onClick={show}/>:<FaEyeSlash onClick={show}/>);
-    const content=(open?<h1 className='amount'>₦{accounts.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
+    const content=(open?<h1 className='amount'>₦{arrs.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
 
         contents=<User_dash cons={cons} secound={secound}setsecound={setsecound} setcons={setcons} account={account} con1={con1} content={content} open={open} setopen={setopen}/>  
 

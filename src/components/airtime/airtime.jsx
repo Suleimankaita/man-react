@@ -510,7 +510,7 @@ const airtime = () => {
     setcredit(cards);
   };
 
-  const mans = amountess.reduce((sum, prices) => sum + prices, 0);
+  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
   const [details, setdetails] = useState('');
   const pay = () => {
     if (mans < credit.airtime || mans < price) {
@@ -550,10 +550,10 @@ const airtime = () => {
 
   useEffect(() => {
     if (credit) {
-            disp(Accno(credit.price||price));
+            disp(Accno(-credit.price||-price));
       
       disp(pricesss({ credit: credit.airtime, phone:`${phone} ` }));
-      disp(Balance(-credit.airtime));
+      disp(Balance(credit.airtime));
 
       setcontents(opens ? (
         <main className='credit_alert'>

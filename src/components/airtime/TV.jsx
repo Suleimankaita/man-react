@@ -122,7 +122,7 @@ const TV = () => {
   
   useEffect(()=>{
         if(credit){
-          disp(Balance(-credit.Data))
+          disp(Balance(credit.Data))
                   disp(pricesss({ credit: credit.Data, phone:`${phone} to` }));
             
           // setopens(prev=>!prev)

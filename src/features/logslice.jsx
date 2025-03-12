@@ -42,7 +42,7 @@ const auth = createSlice({
         Balance: (state, action) => {
             me = Number(action.payload);
             state.amount = me;
-            // console.log(""action.payload)
+            console.log(action.payload)
         },
 
         pricesss: (state, action) => {
@@ -62,7 +62,7 @@ const auth = createSlice({
         disp: (state, action) => { 
             const { values, num } = action.payload;
             if (values === true) {
-                state.account = [...state.account, Number(-me)]; 
+                state.account = [...state.account, Number(-state.amount)]; 
                 state.displays = num;
             } else {
                 state.displays = null;
