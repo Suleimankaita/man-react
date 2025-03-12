@@ -91,6 +91,7 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
     }
 
     return() => {
+      isMounted= false
       console.log("unmounting")
 
       if (socket.current) {
@@ -98,34 +99,32 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
         socket.current.off("transactionUpdate")
         socket.current.off("transactionUpdates")
         socket.current.off("notify")
-        isMounted= false
       }
       
     }
   }, [id,])
 
   useEffect(() => {
+    if(isMounted){
+
     if (!transactions.length) return
 
     const processTransactions = async () => {
       const userTransactions = transactions.find((t) => t._id === id)
       console.log("Processing transactions:", userTransactions)
 
-      if (userTransactions&& transactions.length) {
+      if (userTransactions) {
         console.log("Processing transactions:")
         userTransactions.transaction.forEach((tx) => {
           dispatch(acct(tx.amount))
 
-          arr.push(tx.amount)
-          if(arr.length){
-            console.log(arr)
-            localStorage.setItem('amount',arr)
-            }
         })
       }
     }
 
     processTransactions()
+  }
+
 
     return () => {
       console.log("Cleaning up transactions effect")

@@ -21,13 +21,15 @@ import UseAuth from '../../hooks/UseAuth';
 import { io } from 'socket.io-client';
 const TV = () => {
 
-  const { id: idss } = UseAuth();
+  const { id: idss, } = UseAuth();
     const socketRef = useRef(null); // ✅ Store the socket instance
     const { isLoading, isSuccess } = useGetpostQuery("post", {
       pollingInterval: 1500,
       refetchOnFocus: true,
       refetchOnMountOrArgChange: true
     });
+
+    const {amountess}=Usebuy()
   
     const selects=useSelector(display)
     const accounts=useSelector(account)
@@ -280,11 +282,7 @@ const socket = useRef(null);
 
            disp(acct(tx.amount));
 
-           arrs.push(tx.amount)
-          if(arrs.length){
-            console.log(arrs)
-            localStorage.setItem('amount',arrs)
-            }
+         
          }
        }
      };

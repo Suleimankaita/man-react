@@ -52,6 +52,7 @@ const auth = createSlice({
 
         accounts: (state, action) => {
             state.account = [...state.account, action.payload];
+            // localStorage.setItem("amount",JSON.stringify(state.account))
         },
 
         setide:(state,action)=>{

@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { act_nos } from '../features/logslice'
 import UseAuth from '../hooks/UseAuth'
 import { useDispatch } from 'react-redux'
-
+import Usebuy from '../hooks/Usebuy'
 const User_dashbord = () => {
 
     const { data,isLoading,isSuccess}=useGetpostQuery('user',{
@@ -24,6 +24,7 @@ const User_dashbord = () => {
     
         refetchOnFocus:true,
     })
+    const { amountess} =Usebuy()
 
     const [open,setopen]=useState(true)
 
@@ -134,7 +135,7 @@ const User_dashbord = () => {
   
     let contents;
     const con1=(open?<FaEye onClick={show}/>:<FaEyeSlash onClick={show}/>);
-    const content=(open?<h1 className='amount'>₦{accounts?.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
+    const content=(open?<h1 className='amount'>₦{accounts.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
 
         contents=<User_dash cons={cons} secound={secound}setsecound={setsecound} setcons={setcons} account={account} con1={con1} content={content} open={open} setopen={setopen}/>  
 

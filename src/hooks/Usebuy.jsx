@@ -14,6 +14,17 @@ import { useAdd_TransMutation } from '../features/appslice'
 import { ide } from '../features/logslice'
 const Usebuy = () => {
     const dispatch=useDispatch()
+    const [amountess, setamoutess] = useState(() => {
+      try {
+        const storedValue = localStorage.getItem('amount');
+        console.log(storedValue+"sjsjjs")
+        return storedValue ? JSON.parse(storedValue) : [];
+      } catch (error) {
+        console.error("Error parsing localStorage data:", error);
+        return []; // Default fallback value
+      }
+    });
+    
     const showadd=useSelector(amount)
     const ides=useSelector(ide)
     const act_no=useSelector(act_nos)
@@ -80,7 +91,7 @@ const Usebuy = () => {
     }
 
         },[values])
-    return {credit,setcredit,opens,setopens,values,setvalues,display}
+    return {credit,setcredit,opens,setopens,values,setvalues,display,amountess}
 }
 
 export default Usebuy

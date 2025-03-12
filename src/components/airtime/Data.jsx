@@ -37,6 +37,7 @@ const Data = () => {
   const [opens,setopens]=useState(true)
   const disp=useDispatch()
   const { id: idss } = UseAuth();
+  const {amountess}=Usebuy()
 //   const [account,setaccount]=useState([100,200])
   const [sims,setsims]=useState([
     
@@ -354,6 +355,7 @@ const socket = useRef(null);
       if (userTransactions) {
         for (let tx of userTransactions.transaction) {
           disp(acct(tx.amount));
+        
         }
       }
     };

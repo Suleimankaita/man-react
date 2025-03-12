@@ -487,6 +487,7 @@ const airtime = () => {
   const accounts = useSelector(account);
   const [opens, setopens] = useState(true);
   const audio=useRef(null)
+  const{amountess}=Usebuy()
   const [sims, setsims] = useState([
     { id: 0, name: "MTN", icon: mtn, checked: true },
     { id: 1, name: "Airtel", icon: Airtel, checked: false },
@@ -509,7 +510,7 @@ const airtime = () => {
     setcredit(cards);
   };
 
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+  const mans = amountess.reduce((sum, prices) => sum + prices, 0);
   const [details, setdetails] = useState('');
   const pay = () => {
     if (mans < credit.airtime || mans < price) {
@@ -670,6 +671,9 @@ const airtime = () => {
                   socket.current.off("notify");
                 };
         }, [idss]);
+
+        const arrs=[]
+
   useEffect(() => {
     if (!transactions.length) return;
 
@@ -678,8 +682,13 @@ const airtime = () => {
       if (userTransactions) {
         for (let tx of userTransactions.transaction) {
           disp(acct(tx.amount));
-          localStorage.setItem('amount',tx.amount)
 
+          arrs.push(tx.amount)
+          if(arrs.length){
+            console.log(arrs)
+            // localStorage.setItem('amount',JSON.stringify(arrs))
+            
+            }
         }
       }
     };
