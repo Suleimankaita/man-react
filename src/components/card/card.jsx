@@ -10,7 +10,12 @@ import { FaMoneyBillAlt, FaCoins, FaShieldAlt, FaTimes, FaWallet, FaUnlockAlt } 
 import { io } from 'socket.io-client';
 import Usebuy from '../../hooks/Usebuy';
 import { toast } from 'react-toastify';
+import { useGetpostQuery } from '../../features/appslice';
 const card = () => {
+
+    const { data } = useGetpostQuery('', {
+        refetchOnFocus: true, 
+        pollingInterval: 1000})
 
 
       const { id: userId, } = UseAuth();
@@ -36,14 +41,58 @@ const card = () => {
         setopens(prev => !prev);
         setcredit(cards);
       };
+
+      
+          const arrs=[]
+              let moute=true;
+            
+              useEffect(()=>{
+            
+                if(moute){
+            
+                  const mans=async()=>{
+            
+                    const {entities}=data;
+            
+                      const all=entities[userId].transaction;
+        
+                      const ms=all.map(res=>{
+                      
+                        // return setarrs(prev=>[...prev,res.amount])
+                        return arrs.push(res.amount)
+                      
+                    })
+            
+                       if(arrs.length){
+                        console.log(arrs)
+                    }
+            
+                  }
+                  mans()
+            
+                }
+                return()=>{
+                  moute=false;
+                }
+            
+              },[data])
+            
+              const [mss,setmss]=useState([])
+        
+            useEffect(()=>{
+              if(arrs.length){
+                console.log(arrs)
+                setmss(arrs)
+            }
+            },[arrs])
     
-      const totalBalance = accounts.reduce((sum, prices) => sum + prices, 0);
+      const totalBalance = mss.reduce((sum, prices) => sum + prices, 0);
     
       const pay = () => {
 
         if (totalBalance < 1000) {
           return swal({
-            text: `Insufficient balance. You need NGN ${credit.Data}.`,
+            text: `Insufficient balance. You need NGN ${-1000}.`,
             title: "No enough balance",
             icon: "error"
           });
@@ -63,7 +112,7 @@ const card = () => {
     
       useEffect(() => {
         if (credit) {
-          //  disp(Balance(-credit.Data))
+           disp(Balance(1000))
                             disp(pricesss({ credit: 1000, phone:`You requested new card and You will receive it soon ` }));
                       
           setcontents(opens ? (
@@ -114,7 +163,7 @@ const card = () => {
         if(isMounted){
 
         if (!socket.current) {
-          socket.current = io("https://ict-tr8s.onrender.com");
+          socket.current = io("localhost:4000");
           
       
         }

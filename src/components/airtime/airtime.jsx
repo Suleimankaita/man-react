@@ -471,8 +471,8 @@ import a from '../transfer/note.mp3'
 
 const airtime = () => {
   const socketRef = useRef(null); // ✅ Store the socket instance
-  const { isLoading, isSuccess } = useGetpostQuery("post", {
-    pollingInterval: 1500,
+  const { data,isLoading, isSuccess } = useGetpostQuery("post", {
+    pollingInterval: 100,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true
   });
@@ -495,6 +495,49 @@ const airtime = () => {
     { id: 3, name: "9mobile", icon: mobile, checked: false }
   ]);
 
+    const arrs=[]
+        let moute=true;
+      
+        useEffect(()=>{
+      
+          if(moute){
+      
+            const mans=async()=>{
+      
+              const {entities}=data;
+      
+                const all=entities[idss].transaction;
+  
+                const ms=all.map(res=>{
+                
+                  // return setarrs(prev=>[...prev,res.amount])
+                  return arrs.push(res.amount)
+                
+              })
+      
+                 if(arrs.length){
+                  console.log(arrs)
+              }
+      
+            }
+            mans()
+      
+          }
+          return()=>{
+            moute=false;
+          }
+      
+        },[data])
+      
+        const [mss,setmss]=useState([])
+  
+      useEffect(()=>{
+        if(arrs.length){
+          console.log(arrs)
+          setmss(arrs)
+      }
+      },[arrs])
+
   const [contents, setcontents] = useState('');
   const [phone, setphone] = useState('');
   const arr = [glo, mtn, mobile];
@@ -510,7 +553,7 @@ const airtime = () => {
     setcredit(cards);
   };
 
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+  const mans = mss.reduce((sum, prices) => sum + prices, 0);
   const [details, setdetails] = useState('');
   const pay = () => {
     if (mans < credit.airtime || mans < price) {
@@ -672,7 +715,6 @@ const airtime = () => {
                 };
         }, [idss]);
 
-        const arrs=[]
 
   useEffect(() => {
     if (!transactions.length) return;
@@ -683,12 +725,6 @@ const airtime = () => {
         for (let tx of userTransactions.transaction) {
           disp(acct(tx.amount));
 
-          arrs.push(tx.amount)
-          if(arrs.length){
-            console.log(arrs)
-            // localStorage.setItem('amount',JSON.stringify(arrs))
-            
-            }
         }
       }
     };

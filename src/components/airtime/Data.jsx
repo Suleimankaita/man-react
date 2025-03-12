@@ -24,8 +24,8 @@ import { io } from 'socket.io-client'
 const Data = () => {
 
     const socketRef = useRef(null); // ✅ Store the socket instance
-    const { isLoading, isSuccess } = useGetpostQuery("post", {
-      pollingInterval: 1500,
+    const {data, isLoading, isSuccess } = useGetpostQuery("post", {
+      pollingInterval: 100,
       refetchOnFocus: true,
       refetchOnMountOrArgChange: true
     });
@@ -80,6 +80,49 @@ const Data = () => {
     const show = () => {
       setopen(prev => !prev);
     };
+
+      const arrs=[]
+          let moute=true;
+        
+          useEffect(()=>{
+        
+            if(moute){
+        
+              const mans=async()=>{
+        
+                const {entities}=data;
+        
+                  const all=entities[idss].transaction;
+    
+                  const ms=all.map(res=>{
+                  
+                    // return setarrs(prev=>[...prev,res.amount])
+                    return arrs.push(res.amount)
+                  
+                })
+        
+                   if(arrs.length){
+                    console.log(arrs)
+                }
+        
+              }
+              mans()
+        
+            }
+            return()=>{
+              moute=false;
+            }
+        
+          },[data])
+        
+          const [mss,setmss]=useState([])
+    
+        useEffect(()=>{
+          if(arrs.length){
+            console.log(arrs)
+            setmss(arrs)
+        }
+        },[arrs])
   
   const [all,setall]=useState(false)
     
@@ -102,7 +145,7 @@ const Data = () => {
   //       //  alert("Insubficient Funds")
   //       }
 
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+  const mans = mss.reduce((sum, prices) => sum + prices, 0);
   const [details, setdetails] = useState('');
   const pay = () => {
     if (mans < credit.Data) {

@@ -136,41 +136,8 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
   }, [transactions, id, dispatch]);
 
 
-  const [arrs,setarrs]=useState([]);
-  let moute=true;
-
-  useEffect(()=>{
-
-    if(moute){
-
-      const mans=async()=>{
-
-        const {ids,entities}=data;
-
-          const all=entities[id].transaction
-          const ms=all.map(res=>{
-            return setarrs(prev=>[...prev,res.amount])
-          })
-
-          if(arrs.length){
-            console.log(arrs)
-          }
-
-      }
-      mans()
-
-    }
-    return()=>{
-      moute=false;
-    }
-
-  },[data])
-
-useEffect(()=>{
-  if(arrs.length){
-    console.log(arrs)
-}
-},[arrs])
+  // const [arrs,setarrs]=useState([]);
+  
 
 
   return (

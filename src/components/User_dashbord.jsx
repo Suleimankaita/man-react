@@ -20,7 +20,7 @@ const User_dashbord = () => {
 
     const { data,isLoading,isSuccess}=useGetpostQuery('user',{
     
-        pollingInterval:1500,
+        pollingInterval:100,
     
         refetchOnFocus:true,
     })
@@ -40,7 +40,8 @@ const User_dashbord = () => {
     const { id: idss,username,account} = UseAuth();
 
 
-    const [arrs,setarrs]=useState([]);
+    // const [arrs,setarrs]=useState([]);
+    const arrs=[]
       let moute=true;
     
       useEffect(()=>{
@@ -55,7 +56,8 @@ const User_dashbord = () => {
 
               const ms=all.map(res=>{
               
-                return setarrs(prev=>[...prev,res.amount])
+                // return setarrs(prev=>[...prev,res.amount])
+                return arrs.push(res.amount)
               
             })
     
@@ -73,9 +75,12 @@ const User_dashbord = () => {
     
       },[data])
     
+      const [mss,setmss]=useState([])
+
     useEffect(()=>{
       if(arrs.length){
         console.log(arrs)
+        setmss(arrs)
     }
     },[arrs])
     
@@ -178,7 +183,7 @@ const User_dashbord = () => {
   
     let contents;
     const con1=(open?<FaEye onClick={show}/>:<FaEyeSlash onClick={show}/>);
-    const content=(open?<h1 className='amount'>₦{arrs.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
+    const content=(open?<h1 className='amount'>₦{mss?.reduce((sum, prices) => sum + prices, 0).toLocaleString()}</h1>:<h1 className='amount'>****</h1>);
 
         contents=<User_dash cons={cons} secound={secound}setsecound={setsecound} setcons={setcons} account={account} con1={con1} content={content} open={open} setopen={setopen}/>  
 

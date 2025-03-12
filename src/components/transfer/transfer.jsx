@@ -852,9 +852,53 @@ const Transfer = () => {
   //         return sum +prices
   //     })
   // )
+  
+    const arrs=[]
+        let moute=true;
+      
+        useEffect(()=>{
+      
+          if(moute){
+      
+            const mans=async()=>{
+      
+              const {entities}=data;
+      
+                const all=entities[idss].transaction;
+  
+                const ms=all.map(res=>{
+                
+                  // return setarrs(prev=>[...prev,res.amount])
+                  return arrs.push(res.amount)
+                
+              })
+      
+                 if(arrs.length){
+                  console.log(arrs)
+              }
+      
+            }
+            mans()
+      
+          }
+          return()=>{
+            moute=false;
+          }
+      
+        },[data])
+      
+        const [mss,setmss]=useState([])
+  
+      useEffect(()=>{
+        if(arrs.length){
+          console.log(arrs)
+          setmss(arrs)
+      }
+      },[arrs])
+
   const [amount, setamount] = useState('');
 
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+  const mans = mss.reduce((sum, prices) => sum + prices, 0);
 
   const man = () => {
     if (amount === '') {

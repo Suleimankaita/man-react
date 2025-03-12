@@ -23,8 +23,8 @@ const TV = () => {
 
   const { id: idss, } = UseAuth();
     const socketRef = useRef(null); // ✅ Store the socket instance
-    const { isLoading, isSuccess } = useGetpostQuery("post", {
-      pollingInterval: 1500,
+    const {data, isLoading, isSuccess } = useGetpostQuery("post", {
+      pollingInterval: 150,
       refetchOnFocus: true,
       refetchOnMountOrArgChange: true
     });
@@ -79,7 +79,51 @@ const TV = () => {
     
 
   }
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+
+    const arrs=[]
+        let moute=true;
+      
+        useEffect(()=>{
+      
+          if(moute){
+      
+            const mans=async()=>{
+      
+              const {entities}=data;
+      
+                const all=entities[idss].transaction;
+  
+                const ms=all.map(res=>{
+                
+                  // return setarrs(prev=>[...prev,res.amount])
+                  return arrs.push(res.amount)
+                
+              })
+      
+                 if(arrs.length){
+                  console.log(arrs)
+              }
+      
+            }
+            mans()
+      
+          }
+          return()=>{
+            moute=false;
+          }
+      
+        },[data])
+      
+        const [mss,setmss]=useState([])
+  
+      useEffect(()=>{
+        if(arrs.length){
+          console.log(arrs)
+          setmss(arrs)
+      }
+      },[arrs]) 
+
+  const mans = mss.reduce((sum, prices) => sum + prices, 0);
   const [details, setdetails] = useState('');
   const pay = () => {
     if (mans < credit.Data ) {
@@ -271,24 +315,26 @@ const socket = useRef(null);
                  };
          }, [idss]);
 
-         const arrs=[]
-   useEffect(() => {
-     if (!transactions.length) return;
+  //  useEffect(() => {
+  //    if (!transactions.length) return;
  
-     const processTransactions = async () => {
-       const userTransactions = transactions.find(t => t._id === idss);
-       if (userTransactions) {
-         for (let tx of userTransactions.transaction) {
+  //    const processTransactions = async () => {
+  //      const userTransactions = transactions.find(t => t._id === idss);
+  //      if (userTransactions) {
+  //        for (let tx of userTransactions.transaction) {
 
-           disp(acct(tx.amount));
+  //          disp(acct(tx.amount));
 
          
-         }
-       }
-     };
+  //        }
+  //      }
+  //    };
  
-     processTransactions();
-   }, [transactions, idss, disp]);
+  //    processTransactions();
+  //  }, [transactions, idss, disp]);
+
+
+   
 
 const prevSlide = () => {
 setindex((prevIndex) => (prevIndex - 1 + arr.length) % arr.length);
