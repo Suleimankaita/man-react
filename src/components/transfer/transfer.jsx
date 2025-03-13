@@ -800,7 +800,7 @@ const Transfer = () => {
   const noti = new Audio(a);
 
   const { data, isLoading, isSuccess } = useGetpostQuery('post', {
-    pollingInterval: 1500,
+    pollingInterval: 100,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
@@ -1131,7 +1131,7 @@ const Transfer = () => {
     if (isMounted) {
       const man = async () => {
         if (!socket.current) {
-          socket.current = io('http://localhost:4000');
+          socket.current = io('https://ict-vazm.onrender.com');
         }
 
         const sock = socket.current;

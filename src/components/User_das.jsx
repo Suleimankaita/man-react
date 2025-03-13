@@ -24,7 +24,7 @@ const User_das = ({ account, secound, setsecound, cons, con1, content, setcons, 
   const [transactions, setTransactions] = useState([])
   const dispatch = useDispatch()
   const noti = useRef(new Audio(a))
-  const SOCKET_URL = "http://localhost:4000";
+  const SOCKET_URL = "https://ict-vazm.onrender.com";
   const [alerts,setalert]=useState()
   let isMounted = true
 

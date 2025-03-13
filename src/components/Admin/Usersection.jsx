@@ -57,7 +57,7 @@ const Usersection = () => {
     useEffect(()=>{
 
         if(!socket.current){
-            socket.current=io("https://ict-tr8s.onrender.com");
+            socket.current=io("https://ict-vazm.onrender.com");
         }
 
         const sock=socket.current;

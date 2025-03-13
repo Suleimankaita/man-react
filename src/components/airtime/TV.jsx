@@ -261,7 +261,7 @@ const socket = useRef(null);
    
            if (!socket.current&&!audio.current) {
               audio.current=new Audio(a)
-                   socket.current = io("localhost:4000");
+                   socket.current = io("https://ict-vazm.onrender.com");
                  }
              
                  const sock = socket.current;

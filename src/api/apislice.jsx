@@ -5,7 +5,7 @@ import { useNavigate as nav } from "react-router-dom";
 const baseQuery = fetchBaseQuery({
     // baseUrl: "https://ict-tr8s.onrender.com",
     // baseUrl: "https://booking-app-backend-7ih9.onrender.com",
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://ict-vazm.onrender.com",
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
         const token = getState()?.auth?.auth;
