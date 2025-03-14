@@ -886,6 +886,7 @@ const Transfer = () => {
           }
       
         },[data])
+     
       
         const [mss,setmss]=useState([])
   
@@ -1137,17 +1138,16 @@ const Transfer = () => {
      }
  
      if (isMounted) {
-       console.log("mounting");
  
        const sock = socket.current;
  
        sock.off("message").on("message", (data) => {
-         console.log("Received message:", data);
          setTransactions(data);
+        setfind(data)
+
        });
  
        sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
-         console.log("Received transactionUpdates:", datas);
          toast(datas);
        });
  
