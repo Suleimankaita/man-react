@@ -131,67 +131,87 @@ const BillComponent = () => {
       ) : <></>);
     }
   }, [amounts, opens]);
+  const SOCKET_URL = "https://ict-vazm.onrender.com";
+  const audio = useRef(null)
+
 
   const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
   const [idee, setIdee] = useState('');
 
-  useEffect(() => {
-    if (isMounted) {
-      const man = async () => {
-        if (!socket.current) {
-          socket.current = io('https://ict-vazm.onrender.com');
-        }
-
-        const sock = socket.current;
-
-        socket.current.off('message').on('message', (data) => {
-          setTransactions(data);
-          setIdee(data);
-        });
-        socket.current.off('transactionUpdates').on('transactionUpdates', (datas) => {
-          // toast(datas)
-        });
-
-        socket.current.off('notify').on('notify', (datas) => {
-          if (datas.id1 === id) {
-            noti.play().catch((err) => console.log('Sound error:', err));
-            let man = `${datas.name} \n\r NGN${datas.amount} ${datas.time}`;
-            toast(man);
-            if ("Notification" in window) {
-              if (Notification.permission === "granted") {
-                new Notification("New Notification", { body: datas.amount });
-              } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then((permission) => {
-                  if (permission === "granted") {
-                    new Notification("New Notification", { body: datas.amount });
-                  }
-                });
-              }
-            }
-          }
-          toast(null);
-        });
-
-        socket.current.off('transactionUpdate').on('transactionUpdate', (newTransaction) => {
-          setTransactions(prev => {
-            const exists = prev.some(tx => tx._id === newTransaction._id);
-            return exists ? prev : [newTransaction, ...prev];
-          });
-        });
-      };
-      man();
-    }
-
-    return () => {
-      isMounted = false;
-      socket.current.off('message');
-      socket.current.off('transactionUpdate');
-      socket.current.off('transactionUpdates');
-      socket.current.off('notify');
-    };
-  }, [id, data]);
-
+ 
+   useEffect(() => {
+     if (!socket.current && !audio.current) {
+       audio.current = new Audio(a);
+       socket.current = io(SOCKET_URL, {
+         transports: ["websocket"],
+         secure: true,
+       });
+     }
+ 
+     if (isMounted) {
+ 
+       const sock = socket.current;
+ 
+       sock.off("message").on("message", (data) => {
+         setTransactions(data);
+       });
+ 
+       sock.off("transactionUpdates").on("transactionUpdates", (datas) => {
+         toast(datas);
+       });
+ 
+       sock.off("notify").on("notify", (datas) => {
+         console.log("Received notify:", datas);
+         if (datas.id1 === id) {
+           document.addEventListener(
+             "click",
+             () => {
+               noti.current.play().catch((err) => console.log("Sound error:", err));
+             },
+             { once: true }
+           );
+           
+           // setTransactions((prev) => [...prev, datas.amount]);
+ 
+           let message = `${datas.name} \n NGN${datas.amount} ${datas.time}`;
+           toast(message);
+ 
+           if ("Notification" in window) {
+             if (Notification.permission === "granted") {
+               new Notification("New Notification", { body: datas.amount });
+             } else if (Notification.permission !== "denied") {
+               Notification.requestPermission().then((permission) => {
+                 if (permission === "granted") {
+                   new Notification("New Notification", { body: datas.amount });
+                 }
+               });
+             }
+           }
+         }
+       });
+ 
+       sock.off("transactionUpdate").on("transactionUpdate", (newTransaction) => {
+         console.log("Received transactionUpdate:", newTransaction);
+         setTransactions((prev) => {
+           const exists = prev.some((tx) => tx._id === newTransaction._id);
+           return exists ? prev : [newTransaction, ...prev];
+         });
+       });
+     }
+ 
+     return () => {
+       isMounted = false;
+       console.log("unmounting");
+ 
+       if (socket.current) {
+         socket.current.off("message");
+         socket.current.off("transactionUpdate");
+         socket.current.off("transactionUpdates");
+         socket.current.off("notify");
+       }
+     };
+   }, [id]);
   if (Notification.permission !== 'granted') {
     Notification.requestPermission();
   }
