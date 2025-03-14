@@ -113,7 +113,7 @@ const Profile = () => {
        <ToastContainer/>        
         <main className='profile_pic'>
 
-          <img src={view?view:`http://https://ict-tr8s.onrender.com/image/${img}`} alt="" width={150} height={150} />
+          <img src={view?view:`https://ict-vazm.onrender.com/image/${img}`} alt="" width={150} height={150} />
          
           <input type="file" 
           name='file'
