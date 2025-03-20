@@ -9,9 +9,8 @@ const baseQuery = fetchBaseQuery({
     credentials: "include",
     prepareHeaders: (Headers, { getState }) => {
         const token = getState()?.auth?.auth;
-        const tok=JSON.parse(localStorage.getItem("jwt")||token)
-        if (tok) {
-            Headers.set("authorization", `Bearer ${tok}`);
+        if (token) {
+            Headers.set("authorization", `Bearer ${token}`);
         }
         
         // 🔹 Add headers to prevent iOS from caching the request
