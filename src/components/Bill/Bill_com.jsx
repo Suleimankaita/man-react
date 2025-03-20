@@ -27,7 +27,51 @@ const BillComponent = () => {
   const [opens, setOpens] = useState(false);
   const selects = useSelector(display);
   const [amounts, setAmounts] = useState({});
-  const mans = accounts.reduce((sum, prices) => sum + prices, 0);
+  const [am,setam]=useState([])
+
+
+          const arrs=[]
+
+          let moute=true;
+        
+          useEffect(()=>{
+        
+            if(moute){
+        
+              const mans=async()=>{
+        
+                const {entities}=data;
+                  const all=entities[id].transaction;
+    
+                  const ms=all.map(res=>{
+                  
+                    // return setarrs(prev=>[...prev,res.amount])
+                    return arrs.push(res.amount)
+                  
+                })
+        
+                  
+              }
+              mans()
+        
+            }
+            return()=>{
+              moute=false;
+            }
+        
+          },[data])
+
+              
+                  const [mss,setmss]=useState([])
+            
+                useEffect(()=>{
+                  if(arrs.length){
+                    setmss(arrs)
+                }
+                },[arrs])
+
+  const mans = mss.reduce((sum, prices) => sum + prices, 0);
+  
   const bills = [
     {
       billName: 'Electricity Bill',
@@ -212,27 +256,27 @@ const BillComponent = () => {
        }
      };
    }, [id]);
-  if (Notification.permission !== 'granted') {
-    Notification.requestPermission();
-  }
+  // if (Notification.permission !== 'granted') {
+  //   Notification.requestPermission();
+  // }
 
-  useEffect(() => {
-    if (isMounted) {
-      if (!transactions.length) return;
+  // useEffect(() => {
+  //   if (isMounted) {
+  //     if (!transactions.length) return;
 
-      const processTransactions = async () => {
-        const userTransactions = transactions.find((t) => t._id === id);
+  //     const processTransactions = async () => {
+  //       const userTransactions = transactions.find((t) => t._id === id);
 
-        if (userTransactions) {
-          for (let tx of userTransactions.transaction) {
-            dispatch(acct(tx.amount));
-          }
-        }
-      };
+  //       if (userTransactions) {
+  //         for (let tx of userTransactions.transaction) {
+  //           dispatch(acct(tx.amount));
+  //         }
+  //       }
+  //     };
 
-      processTransactions();
-    }
-  }, [transactions, id, dispatch]);
+  //     processTransactions();
+  //   }
+  // }, [transactions, id, dispatch]);
 
   if (isLoading) {
     content = (<div className="loader_cen"> <div className='loader'></div></div>);

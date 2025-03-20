@@ -33,10 +33,12 @@ const auth = createSlice({
 
         setlogin: (state, action) => {
             state.auth = action.payload;
+            localStorage.setItem("jwt",JSON.stringify(action.payload))
         },
 
         logout: (state) => {
             state.auth = null;
+            localStorage.removeItem("jwt")
         },
 
         Balance: (state, action) => {
