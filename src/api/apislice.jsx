@@ -46,13 +46,13 @@ const baseQuerywithreauth = async (arg, api, extraopt) => {
             // api.extraOptions.headers.set("Expires", "0");
 
             result = await baseQuery(arg, api, extraopt);
-        } else {
-            if(secoundresult?.error?.originalStatus===401){
-
+        } 
+        // else {
+            else if(secoundresult?.error?.originalStatus===401||secoundresult?.error?.originalStatus===403){
                 await api.dispatch(setlogin(null));
                 window.location.href = "/form";
             }
-        }
+        // }
     }
     
     // 🔹 Add headers to prevent iOS from caching the request

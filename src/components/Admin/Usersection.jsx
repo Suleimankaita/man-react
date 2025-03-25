@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams ,useNavigate} from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { useRef,useState,useEffect, } from 'react'
-import img from "../../assets/images/person_1.jpg"
+import img from "../../assets/images/12.jpg"
 import { useDeleteMutation } from '../../api/Logoutslice'
 import { Table,TableBody,TableCell,TableContainer,Paper,TablePagination, TableRow } from '@mui/material'
 import { toast,ToastContainer } from 'react-toastify'
@@ -106,7 +106,7 @@ const Usersection = () => {
                     <div style={{display:"flex",flexFlow:"column",alignItems:"center",width:"100%"}}>
                     <div className='fl' >
                     <div className="img_profile">
-                        <img src={find?.img?`http://https://ict-tr8s.onrender.com/image/${find?.img}`:img} alt="" width={100} height={100} />
+                        <img src={find?.img?`https://ict-vazm.onrender.com/image/${find?.img}`:img} alt="" width={100} height={100} />
                     </div>
     
                     <div className="User_details">

@@ -125,7 +125,7 @@ let con;
        
         <div className="view_status">
        
-            <h1>Todays  Interest</h1>
+            <h1>Todays  Bills </h1>
        
             <span>₦{Number(ms).toLocaleString()} </span>
        
