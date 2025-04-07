@@ -65,7 +65,7 @@ const Profile = () => {
   useEffect(()=>{
 
     if(isError){
-      toast(error.data.message)
+      toast(error?.data?.message)
     }
   },[isError])
 
