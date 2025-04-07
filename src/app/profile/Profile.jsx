@@ -60,14 +60,10 @@ const Profile = () => {
       await update({form,id})
 
     }catch(err){
+      console.log(err)
     }
-  }
-  useEffect(()=>{
 
-    if(isError){
-      toast(error?.data?.message)
-    }
-  },[isError])
+  }
 
   useEffect(()=>{
  
@@ -94,14 +90,6 @@ const Profile = () => {
   },[data])
 
 
-
-  useEffect(()=>{
-    
-    if(!values){
-      toast(error?.data?.message)
-    }
-
-  },[isError])
 
 
   if(load){
