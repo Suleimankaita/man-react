@@ -28,7 +28,7 @@ const Notification = () => {
     // ✅ Establish WebSocket Connection
     useEffect(() => {
         if (!socketRef.current) {
-            socketRef.current = io("https://ict-vazm.onrender.com", {
+            socketRef.current = io("https://ict-1-05bk.onrender.com", {
                 transports: ["websocket"],
                 reconnection: true,
             });

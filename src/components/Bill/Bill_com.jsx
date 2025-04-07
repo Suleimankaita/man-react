@@ -175,7 +175,7 @@ const BillComponent = () => {
       ) : <></>);
     }
   }, [amounts, opens]);
-  const SOCKET_URL = "https://ict-vazm.onrender.com";
+  const SOCKET_URL = "https://ict-1-05bk.onrender.com";
   const audio = useRef(null)
 
 

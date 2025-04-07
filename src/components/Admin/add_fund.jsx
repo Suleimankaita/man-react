@@ -176,7 +176,7 @@ const AddUserFund = () => {
                     <h1>KS Bank</h1>
                     <div className="User_img">
                          <p>profile</p>
-                        <img src={formData.img ? `http://localhost:4000/image/${formData.img}` : img} alt="" width={70} height={70} />
+                        <img src={formData.img ? `https://ict-1-05bk.onrender.com/image/${formData.img}` : img} alt="" width={70} height={70} />
                     </div>
                     <div className="User_img">
                         <p>Username:</p>

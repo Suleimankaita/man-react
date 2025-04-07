@@ -38,7 +38,7 @@ const Userlist = () => {
     useEffect(()=>{
 
       if(!socket.current){
-        socket.current=io('https://ict-vazm.onrender.com');
+        socket.current=io('https://ict-1-05bk.onrender.com');
       }
       // if(mounted){
 

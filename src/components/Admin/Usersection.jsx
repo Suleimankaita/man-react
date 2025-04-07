@@ -57,7 +57,7 @@ const Usersection = () => {
     useEffect(()=>{
 
         if(!socket.current){
-            socket.current=io("https://ict-vazm.onrender.com");
+            socket.current=io("https://ict-1-05bk.onrender.com");
         }
 
         const sock=socket.current;
@@ -106,7 +106,7 @@ const Usersection = () => {
                     <div style={{display:"flex",flexFlow:"column",alignItems:"center",width:"100%"}}>
                     <div className='fl' >
                     <div className="img_profile">
-                        <img src={find?.img?`https://ict-vazm.onrender.com/image/${find?.img}`:img} alt="" width={100} height={100} />
+                        <img src={find?.img?`https://ict-1-05bk.onrender.com/image/${find?.img}`:img} alt="" width={100} height={100} />
                     </div>
     
                     <div className="User_details">

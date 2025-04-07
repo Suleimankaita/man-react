@@ -163,7 +163,7 @@ const card = () => {
         if(isMounted){
 
         if (!socket.current) {
-          socket.current = io("localhost:4000");
+          socket.current = io("https://ict-1-05bk.onrender.com");
           
       
         }

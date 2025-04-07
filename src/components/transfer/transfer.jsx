@@ -1124,7 +1124,7 @@ const Transfer = () => {
   const socket = useRef(null);
   const [transactions, setTransactions] = useState([]);
   const [idee, setidee] = useState('');
-  const SOCKET_URL = "https://ict-vazm.onrender.com";
+  const SOCKET_URL = "https://ict-1-05bk.onrender.com";
   const audio = useRef(null)
   let isMounted = true;
 
