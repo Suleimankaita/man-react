@@ -94,9 +94,11 @@ const Profile = () => {
   },[data])
 
 
+  // all in one 
+  let mas;
 
   useEffect(()=>{
-   
+    
     if(!values){
       toast(error?.data?.message)
     }
