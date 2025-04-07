@@ -98,7 +98,7 @@ const Profile = () => {
   useEffect(()=>{
    
     if(!values){
-      toast(error.data.message)
+      toast(error?.data?.message)
     }
 
   },[isError])
