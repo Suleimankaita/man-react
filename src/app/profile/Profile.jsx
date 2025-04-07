@@ -94,8 +94,6 @@ const Profile = () => {
   },[data])
 
 
-  // all in one 
-  let mas;
 
   useEffect(()=>{
     
