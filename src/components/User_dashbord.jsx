@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { FaMoneyBillAlt,FaMobileAlt,FaDigitalTachograph,FaTv,FaCoins,FaMoneyCheck,FaHandHoldingUsd,FaEllipsisH,FaFileInvoice} from 'react-icons/fa'
 import svg1 from '../assets/images/flaticon-svg/svg/wallet.svg'
 import svg2 from '../assets/images/flaticon-svg/svg/money.svg'
+import svg3 from '../assets/images/flaticon-svg/svg/credit.svg'
 import { useGetpostQuery } from '../features/appslice'
 import DashBord from './Admin/DashBord'
 import User_dash from './User_das'
@@ -108,13 +109,13 @@ const User_dashbord = () => {
           id:1,
           name:"widthdrawel",
           img:svg2,
-          body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
+          body:"At KS Bank, your money is not just stored—it’s nurtured. Every deposit, transaction, and investment brings you closer to financial stability and success ",
       },
           {
           id:2,
-          name:"widthdrawel",
-          img:svg1,
-          body:"Deposits can be made in various forms, including cash, checks, or electronic transfers",
+          name:"Creadit Card",
+          img:svg3,
+          body:"creadit card is a card issued by a financial institution that allows the cardholder to borrow funds to pay for goods and services",
       },
           {
           id:3,

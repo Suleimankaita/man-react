@@ -79,8 +79,8 @@ const Profile = () => {
       setphone(man.phone)
       setimg(man.img)
       setdate(man.birth.split('T')[0])
-      
-      
+      navigate('/profile')
+
 
     // if(find){
     // }
@@ -97,7 +97,7 @@ const Profile = () => {
   }else if(isSuccess){
     content=(
 
-      <div className="all">
+      <div className="all" >
        <ToastContainer/>        
         <main className='profile_pic'>
 
@@ -118,9 +118,9 @@ const Profile = () => {
         </main>
         <form className='forms' style={{height:"100vh"}} onSubmit={(e)=>e.preventDefault()}>
         
-        <div className="box_inp2">
+        <div className="box_inp2" style={{position:"relative"}}>
 
-<div className="box_input">
+<div className="box_input" style={{position:"relative"}}>
   <input type="text" 
   name="firstname"
   value={firstname}
@@ -129,7 +129,7 @@ const Profile = () => {
   />
   <label className='label'  htmlFor="firtname">firtname</label>
   </div>
-  <div className="box_input">
+  <div className="box_input" style={{position:"relative"}}>
   <input type="text" 
   name="lastname"
   value={lastname}
@@ -160,8 +160,8 @@ const Profile = () => {
   </div>
   </div> */}
   
-    <div className="box_inp2">
-    <div className="box_input">
+    <div className="box_inp2" style={{position:"relative"}}>
+    <div className="box_input" style={{position:"relative"}}>
       <input type="email" 
       name="email"
       value={email}
@@ -178,7 +178,7 @@ const Profile = () => {
       />
   </div>
   </div>
-  <div className="box_inp2">
+  <div className="box_inp2" style={{position:"relative"}}>
 
   <div className="box_input">
     <input type="number" 
@@ -191,7 +191,7 @@ const Profile = () => {
     <label className='label' htmlFor="firtname">phone</label>
     </div>
     
-    <div className="box_input">
+    <div className="box_input" style={{position:"relative"}}>
     <input type="text" 
     name="transaction_pin"
     placeholder=''
@@ -199,7 +199,7 @@ const Profile = () => {
     onChange={(e)=> settransaction_pin(e.target.value)}
     id='transaction_pin'
     />
-    <label className='label' htmlFor="pass">Transaction password</label>
+    <label className='label' htmlFor="pass" style={{whiteSpace:"nowrap"}}>Transaction password</label>
     </div>
     </div>
       <div className="b" style={{display:"flex",justifyContent:"center"}}>
@@ -209,12 +209,14 @@ const Profile = () => {
     </form>
       </div>
     )
+  }else if(isError){
+    toast.error(error?.data?.message)
   }
 
 
 
   return (
-    <section className='main'>
+    <section className='main' >
 
 {content}
     </section>
